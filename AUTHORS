@@ -1,0 +1,15 @@
+# The humans responsible & technology colophon
+
+# TEAM
+
+    powderflask -- software design / programming
+
+# THANKS
+
+    BC Hydro and Chartwell Consulting, Canada
+
+# TECHNOLOGY COLOPHON
+
+    Python3, HTML5, JavaScript
+    Django, django-mptt, django-constrainedfilefield, python-magic, libmagic
+    jQuery, dropzone,

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+        {% include 'registration/include/ie_warning.html' %}
+        {% if form.errors %}
+            <div class="alert alert-warning">
+                <p>Login Failed.  Your username and/or password didn't match. Please try again. </p>
+                <p>Use the "Lost Password" link below to receive a new password by e-mail.</p>
+            </div>
+        {% endif %}
+
+        <h2>Login to your HydroNet Account</h2>
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p>Your account doesn't have permissions to access this page. Request permission from your supervisor.</p>
+            {% endif %}
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <table>
+                {{ form }}
+            </table>
+            <input type='hidden' name='next' value='{{ next }}'>
+            <div class='button_row'><button type='submit'>Log in</button></div>
+        </form>
+
+        <div>
+            <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+        </div>
+
+        <div class="alert alert-info" role="alert">
+            By logging in to HydroNet.ca, you agree to abide by your contractual obligations,
+            under BCH
+            <a href="{% static 'docs/bch-contract-standards-for-ethical-conduct.pdf' %}" target="_blank" class="alert-link">
+                Contract Standards for Ethical Conduct
+            </a>.
+        </div>
+{% endblock %}

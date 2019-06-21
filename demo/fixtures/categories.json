@@ -1,0 +1,86 @@
+[
+{
+  "model": "document_catalogue.documentcategory",
+  "pk": 1,
+  "fields": {
+    "name": "Top-level Category 1",
+    "slug": "top-level-category-1",
+    "description": "This is the category with the mostest, first and foremostest, head of the pack, first in the lead.",
+    "parent": null,
+    "lft": 1,
+    "rght": 6,
+    "tree_id": 2,
+    "level": 0
+  }
+},
+{
+  "model": "document_catalogue.documentcategory",
+  "pk": 2,
+  "fields": {
+    "name": "Top-level Category 2",
+    "slug": "top-level-category-2",
+    "description": "Only second by a smidge, this category is playing 2nd fiddle to only one!  You gotta love 2, the loneliest number since the number 1",
+    "parent": null,
+    "lft": 1,
+    "rght": 6,
+    "tree_id": 3,
+    "level": 0
+  }
+},
+{
+  "model": "document_catalogue.documentcategory",
+  "pk": 3,
+  "fields": {
+    "name": "Sub-category A",
+    "slug": "sub-category-a",
+    "description": "Sub is such a sub-standard word to describe a category like this one.  It is sublime.",
+    "parent": 1,
+    "lft": 2,
+    "rght": 3,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "document_catalogue.documentcategory",
+  "pk": 4,
+  "fields": {
+    "name": "Sub-category B",
+    "slug": "sub-category-b",
+    "description": "To B or not to B, that is the question, tho questionable as it may B.",
+    "parent": 1,
+    "lft": 4,
+    "rght": 5,
+    "tree_id": 2,
+    "level": 1
+  }
+},
+{
+  "model": "document_catalogue.documentcategory",
+  "pk": 5,
+  "fields": {
+    "name": "Sub-category C",
+    "slug": "sub-category-c",
+    "description": "YASC  (yet another sub-cateogry), but with a twist - this one's parent is the number 2",
+    "parent": 2,
+    "lft": 2,
+    "rght": 5,
+    "tree_id": 3,
+    "level": 1
+  }
+},
+{
+  "model": "document_catalogue.documentcategory",
+  "pk": 6,
+  "fields": {
+    "name": "Sub-sub Category i",
+    "slug": "sub-sub-category-i",
+    "description": "This is getting a little crazy - I mean do you really need a 3-level hierarchy?  Are you sure?",
+    "parent": 5,
+    "lft": 3,
+    "rght": 4,
+    "tree_id": 3,
+    "level": 2
+  }
+}
+]

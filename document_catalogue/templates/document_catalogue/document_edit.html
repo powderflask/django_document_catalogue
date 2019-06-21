@@ -1,0 +1,27 @@
+{% extends 'document_catalogue/base.html' %}
+
+{% block dc-content %}
+
+    {% include 'document_catalogue/include/breadcrumb.html' with current_category_link=True %}
+
+    <div class="dc-document-edit">
+        {% include 'document_catalogue/include/document.html' %}
+
+        <h3>Edit</h3>
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+            {% if user_can_delete_document %}
+                <a class="dc-document-delete btn btn-default"
+                   data-url="{% url 'document_catalogue_ajax_delete' document.pk %}"
+                   data-success-url="{% url  'document_catalogue_category_list' document.category.slug %}"
+                   title="Delete Document" href="javascript:void(0)" aria-label="Left Align">
+                    <span class="text-danger glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Delete</span>
+                </a>
+            {% endif %}
+        </form>
+    </div>
+
+{% endblock %}

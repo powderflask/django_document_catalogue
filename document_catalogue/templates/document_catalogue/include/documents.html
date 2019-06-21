@@ -1,0 +1,25 @@
+{% for document in document_list %}
+    <div class="dc-document-item">
+        <a class="dc-document-link" href="{{ document.get_absolute_url }}" title="{{ document.description }}">{{ document.title }}</a>
+        <span class="dc-document-actions">
+            <a class="dc-document-download" href="{{ document.file.url }}" title="Download File">
+                <span class="text-danger glyphicon glyphicon-donwload" aria-hidden="true"></span>
+                <span class="sr-only">Download</span>
+            </a>
+            {% if user_can_edit_document %}
+                <a class="dc-document-edit" href="{% url 'document_catalogue_edit' document.pk %}" title="Edit Document Details">
+                    <span class="text-danger glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    <span class="sr-only">Edit</span>
+                </a>
+            {% endif %}
+            {% comment %}
+            {% if user_can_delete_document %}
+                <a class="dc-document-delete" data-url="{% url 'document_catalogue_ajax_delete' document.pk %}" title="Delete Document" href="javascript:void(0)">
+                    <span class="text-danger glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Delete</span>
+                </a>
+            {% endif %}
+            {% endcomment %}
+        </span>
+    </div>
+{% endfor %}

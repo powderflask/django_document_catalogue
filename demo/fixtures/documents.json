@@ -1,0 +1,122 @@
+[
+{
+  "model": "document_catalogue.document",
+  "pk": 1,
+  "fields": {
+    "category": 3,
+    "sort_order": 1,
+    "user": 1,
+    "creation_date": "2019-06-21T06:58:20.460Z",
+    "update_date": "2019-06-21T07:06:38.205Z",
+    "title": "Lorem Ipsum",
+    "description": "If you can't read Latin, don't think you'll learn it here.",
+    "is_published": true,
+    "file": "documents/sub-category-a/LoremIpsum.pdf"
+  }
+},
+{
+  "model": "document_catalogue.document",
+  "pk": 2,
+  "fields": {
+    "category": 4,
+    "sort_order": 1,
+    "user": 1,
+    "creation_date": "2019-06-21T06:58:45.890Z",
+    "update_date": "2019-06-21T07:07:22.017Z",
+    "title": "Listem Ipsum",
+    "description": "List 'em in the Ip'sum, my grandad always said.",
+    "is_published": true,
+    "file": "documents/sub-category-b/ListemIpsum.pdf"
+  }
+},
+{
+  "model": "document_catalogue.document",
+  "pk": 3,
+  "fields": {
+    "category": 4,
+    "sort_order": 1,
+    "user": 1,
+    "creation_date": "2019-06-21T06:58:57.727Z",
+    "update_date": "2019-06-21T07:07:51.269Z",
+    "title": "Sedlo bortis.pdf",
+    "description": "Sedated and Boring, more like.",
+    "is_published": true,
+    "file": "documents/sub-category-b/Sedlobortis.pdf"
+  }
+},
+{
+  "model": "document_catalogue.document",
+  "pk": 4,
+  "fields": {
+    "category": 5,
+    "sort_order": 1,
+    "user": 1,
+    "creation_date": "2019-06-21T06:59:36.354Z",
+    "update_date": "2019-06-21T07:04:24.844Z",
+    "title": "Quisque ut odio",
+    "description": "You know you want to read it - go on...",
+    "is_published": true,
+    "file": "documents/sub-category-c/Quisqueutodio.pdf"
+  }
+},
+{
+  "model": "document_catalogue.document",
+  "pk": 5,
+  "fields": {
+    "category": 5,
+    "sort_order": 1,
+    "user": 1,
+    "creation_date": "2019-06-21T06:59:40.357Z",
+    "update_date": "2019-06-21T07:04:49.896Z",
+    "title": "Lorem Ipsum",
+    "description": "The classic",
+    "is_published": true,
+    "file": "documents/sub-category-c/LoremIpsum.pdf"
+  }
+},
+{
+  "model": "document_catalogue.document",
+  "pk": 6,
+  "fields": {
+    "category": 2,
+    "sort_order": 1,
+    "user": 1,
+    "creation_date": "2019-06-21T06:59:44.748Z",
+    "update_date": "2019-06-21T07:03:56.985Z",
+    "title": "Screen Shot",
+    "description": "This one is a beauty - must see.",
+    "is_published": true,
+    "file": "documents/top-level-category-2/ScreenShot.png"
+  }
+},
+{
+  "model": "document_catalogue.document",
+  "pk": 7,
+  "fields": {
+    "category": 6,
+    "sort_order": 1,
+    "user": 1,
+    "creation_date": "2019-06-21T07:03:00.891Z",
+    "update_date": "2019-06-21T07:05:17.611Z",
+    "title": "Pup face",
+    "description": "This pup's no pup to mess with",
+    "is_published": true,
+    "file": "documents/sub-sub-category-i/chipup.jpg"
+  }
+},
+{
+  "model": "document_catalogue.document",
+  "pk": 8,
+  "fields": {
+    "category": 6,
+    "sort_order": 1,
+    "user": 1,
+    "creation_date": "2019-06-21T07:03:12.567Z",
+    "update_date": "2019-06-21T07:05:47.433Z",
+    "title": "Sedlo bortis",
+    "description": "Whatever that means... yeesh",
+    "is_published": true,
+    "file": "documents/sub-sub-category-i/Sedlobortis.pdf"
+  }
+}
+]

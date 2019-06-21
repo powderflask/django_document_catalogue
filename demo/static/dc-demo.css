@@ -1,0 +1,12 @@
+.dropzone {
+  min-height: 1em;
+}
+
+.dc-dropzone .dz-message {
+    font-size: small;
+    color: lightgray;
+}
+.dropzone.dz-drag-hover {
+    border-style: none;
+    background-color: #e6ffe6;
+}

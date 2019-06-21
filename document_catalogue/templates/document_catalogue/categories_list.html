@@ -1,0 +1,8 @@
+{% extends 'document_catalogue/base.html' %}
+{% load mptt_tags %}
+
+{% block dc-content %}
+
+    {% include 'document_catalogue/include/categories.html' with show_documents=False %}
+
+{% endblock %}

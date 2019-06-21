@@ -1,0 +1,14 @@
+{# Format all errors on a form into a single HTML element #}
+{% if form.errors %}
+    <ul class="errorlist">
+        {% for field, error in form.errors.items %}
+            <li class="error">
+                {% if strip_tags %}
+                    {{ error.as_text|striptags }}
+                {% else %}
+                    {{ error.as_text }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

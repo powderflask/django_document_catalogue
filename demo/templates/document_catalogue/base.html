@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_head %}
+    <link href="{% static 'dropzone.min.css'%}" type="text/css" rel="stylesheet">
+    <link href="{% static 'dc-demo.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {# default settings for AJAX API requests #}
+    <div id="DocumentCatalogueManager" data-max-filesize="10" data-accepted-files="image/*, application/pdf"></div>
+    {% block dc-content %}
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="{% static 'dropzone.js' %}"></script>
+    <script src="{% static 'document_catalogue/document_catalogue.js' %}"></script>
+{% endblock %}

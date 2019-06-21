@@ -1,0 +1,20 @@
+
+<div class="'dc-document-title"><span class="label">Document:</span> <span class="value">{{ object }}</span></div>
+<ul>
+    <li class="'dc-document-file">
+        <span class="label">Download:</span>
+        <span class="value"><a class="dc-document-download" href="{{ document.file.url }}">{{ document.file.url }}</a></span>
+    </li>
+    <li class="'dc-document-description">
+        <span class="label">Description:</span>
+        <span class="value">{{ object.description }}</span>
+    </li>
+    <li class="'dc-document-creation">
+        <span class="label">Created:</span>
+        <span class="value">{{ object.creation_date }}</span>
+    </li>
+    <li class="'dc-document-update">
+        <span class="label">Last Modified:</span>
+        <span class="value">{{ object.update_date }}</span>
+    </li>
+</ul>

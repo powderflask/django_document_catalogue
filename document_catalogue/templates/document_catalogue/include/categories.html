@@ -1,0 +1,27 @@
+{% load mptt_tags %}
+
+<ul class="dc-category-list dc-list-root">
+    {% recursetree categories %}
+        <li>
+            <a class="dc-category" href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+            {% if show_documents %}
+                <div class="dc-document-list">
+                    {% include "document_catalogue/include/documents.html" with document_list=node.document_set.all %}
+                </div>
+                {% if user_can_post_document %}
+                    <div class="dc-dropzone"
+                         title="Upload new document to {{ node.name }}"
+                         data-dc-category="{{ node.slug }}" data-url="{% url 'document_catalogue_ajax_post' node.slug %}"
+                    >
+                        <span class="dz-message">Click or Drag-Drop files here to upload to category {{ node.name }}</span>
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if not node.is_leaf_node %}
+                <ul class="dc-category-children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Document Catalogue</title>
+</head>
+<body>
+    {# default settings for AJAX API requests #}
+    <div id="DocumentCatalogueManager" data-max-filesize="10" data-accepted-files="image/*, application/pdf"></div>
+
+    {% block dc-content %}
+    {% endblock %}
+</body>
+</html>

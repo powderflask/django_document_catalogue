@@ -1,0 +1,17 @@
+{% extends 'document_catalogue/base.html' %}
+
+{% block dc-content %}
+
+    {% include 'document_catalogue/include/breadcrumb.html' with current_category_link=True %}
+
+    <div class="dc-document-detail">
+        {% include 'document_catalogue/include/document.html' %}
+    </div>
+
+    {% if show_edit_links and user_can_edit_document %}
+        <div class="dc-document-actions">
+            <a class="dc-document-edit-link" href="{% url 'document_catalogue_edit' document.pk %}">Edit</a>
+        </div>
+    {% endif %}
+
+{% endblock %}
