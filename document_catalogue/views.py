@@ -136,8 +136,12 @@ class DocumentDeleteView(CatalogueViewMixin, DocumentViewMixin, generic.DeleteVi
     """ Delete a single document """
     model = Document
 
+    @property
+    def document(self):
+        return self.object
+
     def get_success_url(self):
-        return reverse('document_catalogue_category_list', kwargs={'slug':self.document.category.slug})
+        return reverse('document_catalogue:category_list', kwargs={'slug':self.document.category.slug})
 
 
 class DocumentAjaxAPI(CatalogueViewMixin, CategorySlugMixin, DocumentPkMixin, AjaxOnlyViewMixin):

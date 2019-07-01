@@ -30,7 +30,7 @@ class DocumentCategory(mptt.models.MPTTModel) :
         return str(self.name)
 
     def get_absolute_url(self):
-        return reverse('document_catalogue_category_list', kwargs={'slug': self.slug, })
+        return reverse('document_catalogue:category_list', kwargs={'slug': self.slug, })
 
     def has_children(self) :
         """ Return true if this DocumentCategory has dependent objects lower in the hierarchy """
@@ -92,8 +92,8 @@ class Document(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('document_catalogue_detail', kwargs={'pk': self.pk, })
+        return reverse('document_catalogue:document_detail', kwargs={'pk': self.pk, })
 
     def get_filetype(self):
         name, extension = os.path.splitext(self.file.name)
-        return extension
+        return extension[1:]
