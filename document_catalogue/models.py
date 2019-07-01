@@ -12,7 +12,7 @@ class DocumentCategory(mptt.models.MPTTModel) :
         A hierarchical category system for assets
     """
     name = models.CharField(max_length=64)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     # sort_order = models.SmallIntegerField(default=1)
     description = models.TextField(blank=True)
     parent = mptt.models.TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')

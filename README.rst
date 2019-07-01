@@ -14,26 +14,25 @@ Features:
  *  < 'semi-private' file download URL's > (FUTURE)
  * plugin permissions settings
  * upload / edit / delete documents via django admin
+
     * optionally, enable user-facing edit / upload / delete views and AJAX API
     * plays nice with dropzone for simple file uploads
 
 Dependencies:
  * python 3
  * django 2
- * [django-mptt](https://django-mptt.readthedocs.io/en/latest/index.html)
- * [django-constrainedfilefield] (https://github.com/mbourqui/django-constrainedfilefield)
- * python-magic (if you want to validate file content_types)
+ * `django-mptt <https://django-mptt.readthedocs.io/en/latest/index.html>`_
+ * `django-constrainedfilefield <https://github.com/mbourqui/django-constrainedfilefield>`_
+ * `python-magic <https://github.com/ahupp/python-magic>`_ (if you want to validate file content_types)
 
-Detailed documentation is in the "docs" directory.
+< Detailed documentation is in the "docs" directory. > (TODO)
 
 
 Quick start
 -----------
 
 * `pip install -r requirements.txt`
-
-* `brew install libmagic` (for OSX using homebrew, see [python-magic docs](https://github.com/ahupp/python-magic#installation) for more info.
-
+* `brew install libmagic` (for OSX using homebrew, see `python-magic docs <https://github.com/ahupp/python-magic#installation>`_ for more info.
 * `python3 setup.py test`   (to run app test suite)
 
 1. Add "document_catalogue" and "mptt" to your INSTALLED_APPS setting like this::

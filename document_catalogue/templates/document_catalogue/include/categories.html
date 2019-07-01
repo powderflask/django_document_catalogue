@@ -11,7 +11,7 @@
                 {% if user_can_post_document %}
                     <div class="dc-dropzone"
                          title="Upload new document to {{ node.name }}"
-                         data-dc-category="{{ node.slug }}" data-url="{% url 'document_catalogue_ajax_post' node.slug %}"
+                         data-dc-category="{{ node.slug }}" data-url="{% url 'document_catalogue:api_post' node.slug %}"
                     >
                         <span class="dz-message">Click or Drag-Drop files here to upload to category {{ node.name }}</span>
                     </div>
