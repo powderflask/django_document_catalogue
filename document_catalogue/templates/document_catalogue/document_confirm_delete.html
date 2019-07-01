@@ -1,0 +1,18 @@
+{% extends 'document_catalogue/base.html' %}
+
+{% block dc-content %}
+
+    {% include 'document_catalogue/include/breadcrumb.html' with current_category_link=True %}
+
+    <div class="dc-document-edit">
+        {% include 'document_catalogue/include/document.html' %}
+
+        <h3>Confirm Delete</h3>
+        <form method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete "{{ object }}"?</p>
+            <input type="submit" value="Confirm">
+        </form>
+    </div>
+
+{% endblock %}

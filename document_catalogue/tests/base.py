@@ -2,10 +2,14 @@
      Base classes used to setup testing fixtures
 """
 from django.test import TestCase, SimpleTestCase
-from django.contrib.auth.models import User, Permission
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.contrib.auth.models import AnonymousUser, User, Permission
 from django.utils.text import slugify
 from document_catalogue import models
+from . import settings
 
+def anonymous_user():
+    return AnonymousUser()
 
 def create_user(username='myUser', permissions=()):
     """
@@ -20,7 +24,6 @@ def create_user(username='myUser', permissions=()):
         permissions = Permission.objects.filter(name__in=permissions)
         user.user_permissions.set(permissions)
 
-    print("Created user", user)
     return user
 
 
@@ -48,6 +51,7 @@ def create_document_categories(category_names=(('Top Level Category 1', (('Sub-C
 
 
 def generate_file(filename, file_type='txt'):
+    filename = '{media}{filename}'.format(media=settings.MEDIA_ROOT, filename=filename)
     def write_text_file(filename, content):
         with open(filename, 'wb') as myfile :
             myfile.write(content)
@@ -60,3 +64,23 @@ def generate_file(filename, file_type='txt'):
         return write_text_file(filename, b'<!DOCTYPE html><html><head></head><body><p>Hello World</p></body></html>')
 
     raise Exception("Don't know how to generate file of type %s"%file_type)
+
+
+def generate_simple_uploaded_file(filename, file_type='txt'):
+    if file_type is 'txt':
+        return SimpleUploadedFile(filename, b'Hello World')
+
+    if file_type is 'html':
+        return SimpleUploadedFile(filename, b'<!DOCTYPE html><html><head></head><body><p>Hello World</p></body></html>')
+
+    raise Exception("Don't know how to generate file of type %s"%file_type)
+
+
+def create_document(filename='hello.txt', file_type='txt', user=None, category=None):
+    document = models.Document.objects.create(
+        category = category or models.DocumentCategory.objects.all().first(),
+        user = user or create_user(permissions=('Can add document')),
+        is_published = True,
+        file = generate_simple_uploaded_file(filename, file_type),
+    )
+    return document

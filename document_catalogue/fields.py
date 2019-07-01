@@ -1,7 +1,5 @@
 """
 Taken directly from django-constrainedfilefield  https://github.com/mbourqui/django-constrainedfilefield
-But removed dependency on python-magic.
-This creates a serious security issue, since file validation
 """
 import os
 

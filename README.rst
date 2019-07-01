@@ -30,8 +30,11 @@ Detailed documentation is in the "docs" directory.
 Quick start
 -----------
 
-`pip install -r requirements.txt`
-'brew install libmagic`   (for OSX using homebrew, see [python-magic docs](https://github.com/ahupp/python-magic#installation) for more info.
+* `pip install -r requirements.txt`
+
+* `brew install libmagic` (for OSX using homebrew, see [python-magic docs](https://github.com/ahupp/python-magic#installation) for more info.
+
+* `python3 setup.py test`   (to run app test suite)
 
 1. Add "document_catalogue" and "mptt" to your INSTALLED_APPS setting like this::
 
@@ -44,9 +47,11 @@ Quick start
     ```
     
 2. Include the document_catalogue URLconf in your project urls.py like this::
+
     ```
     path('documents/', include('document_catalogue.urls')),
     ```
+
 3. Run `python manage.py migrate` to create the document_catalogue models.
 
 4. Start the development server and visit http://127.0.0.1:8000/admin/
