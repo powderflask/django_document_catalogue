@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    Login is required -- use manage.py createsuperuser to create an account
+    <ul>
+        <li>
+            <a href="{% url 'login'%}?next={% url 'document_catalogue:catalogue_list' %}">Login</a>
+        </li>
+        <li>
+            <a href="{% url 'admin:index'%}">Django admin</a>
+        </li>
+        <li>
+            <a href="{% url 'document_catalogue:catalogue_list' %}">Document Catalogoue</a>
+        </li>
+    </ul>
+{% endblock content %}

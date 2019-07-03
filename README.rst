@@ -40,7 +40,7 @@ Quick start
     ```
     INSTALLED_APPS = [
         ...
-        'document_catalogue.apps.DocumentCatalogueConfig',
+        'document_catalogue',
         'mptt',
     ]
     ```
@@ -73,4 +73,4 @@ See the demo project for some ideas on how to configure and use the Document Cat
 License
 -------
 
-The code is available under the [MIT license](LICENSE.txt).
+The code is available under the `MIT license <LICENSE.txt>`_.
