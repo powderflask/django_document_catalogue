@@ -1,26 +1,104 @@
 {% extends 'document_catalogue/base.html' %}
+{% load form_tags %}
 
 {% block dc-content %}
 
     {% include 'document_catalogue/include/breadcrumb.html' with current_category_link=True %}
 
-    <div class="dc-document-edit">
+    <div class="dc-document-edit container-fluid">
         {% include 'document_catalogue/include/document.html' %}
 
-        <h3>Edit</h3>
-        <form enctype="multipart/form-data" method="post" {% if not form.is_valid %}class="form-errors"{% endif %}>
+        <div class="page-header">
+            <h4>Edit</h4>
+        </div>
+
+        <form enctype="multipart/form-data" class="form-horizontal" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Submit">
-            {% if user_can_delete_document %}
-                <a class="dc-document-delete btn btn-default"
-                   data-url="{% url 'document_catalogue:api_delete' document.pk %}"
-                   data-success-url="{% url  'document_catalogue:category_list' document.category.slug %}"
-                   title="Delete Document" href="javascript:void(0)" aria-label="Left Align">
-                    <span class="text-danger glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Delete</span>
-                </a>
-            {% endif %}
+            <div class="form-group {% if form.title.errors %}has-error{% endif %}">
+                <label class="col-md-2 control-label" for="id_{{ form.title.name }}">{{ form.title.label }}</label>
+                <div class="col-md-10">
+                    {{ form.title|addclasses:'form-control' }}
+                    {% if form.title.errors %}
+                        <span class="help-block">
+                            {% for error in form.title.errors %}{{ error }}{% endfor %}
+                        </span>
+                    {% elif form.title.help_text %}
+                        <p class="help-block"><small>{{ form.title.help_text }}</small></p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {% if form.description.errors %}has-error{% endif %}">
+                <label class="col-md-2 control-label" for="id_{{ form.description.name }}">{{ form.description.label }}</label>
+                <div class="col-md-10">
+                    {{ form.description|addclasses:'form-control' }}
+                    {% if form.description.errors %}
+                        <span class="help-block">
+                            {% for error in form.description.errors %}{{ error }}{% endfor %}
+                        </span>
+                    {% elif form.description.help_text %}
+                        <p class="help-block"><small>{{ form.description.help_text }}</small></p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {% if form.category.errors %}has-error{% endif %}">
+                <label class="col-md-2 control-label" for="id_{{ form.category.name }}">{{ form.category.label }}</label>
+                <div class="col-md-10">
+                    {{ form.category|addclasses:'form-control' }}
+                    {% if form.category.errors %}
+                        <span class="help-block">
+                            {% for error in form.category.errors %}{{ error }}{% endfor %}
+                        </span>
+                    {% elif form.category.help_text %}
+                        <p class="help-block"><small>{{ form.category.help_text }}</small></p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {% if form.is_published.errors %}has-error{% endif %}">
+                <label class="col-md-2 control-label" for="id_{{ form.is_published.name }}">{{ form.is_published.label }}</label>
+                <div class="col-md-10">
+                    {{ form.is_published|addclasses:'form-control' }}
+                    {% if form.is_published.errors %}
+                        <span class="help-block">
+                            {% for error in form.is_published.errors %}{{ error }}{% endfor %}
+                        </span>
+                    {% elif form.is_published.help_text %}
+                        <p class="help-block"><small>{{ form.is_published.help_text }}</small></p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group {% if form.file.errors %}has-error{% endif %}">
+                <label class="col-md-2 control-label" for="id_{{ form.file.name }}">{{ form.file.label }}</label>
+                <div class="col-md-10">
+                    {{ form.file }}
+                    {% if form.file.errors %}
+                        <span class="help-block">
+                            {% for error in form.file.errors %}{{ error }}{% endfor %}
+                        </span>
+                    {% elif form.file.help_text %}
+                        <p class="help-block"><small>{{ form.file.help_text }}</small></p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-offset-1 col-md-6">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    {% if user_can_delete_document %}
+                        <a class="dc-document-delete btn btn-default btn-danger"
+                           data-url="{% url 'document_catalogue:api_delete' document.pk %}"
+                           data-success-url="{% url 'document_catalogue:category_list' document.category.slug %}"
+                           title="Delete Document"
+                           href="javascript:void(0)"
+                           aria-label="Left Align" >
+                            Delete
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
         </form>
     </div>
 

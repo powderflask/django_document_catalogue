@@ -1,5 +1,5 @@
 from django import forms
-
+from document_catalogue.fields import ConstrainedFileWidget
 from . import models
 
 
@@ -11,6 +11,7 @@ class DocumentUploadForm(forms.ModelForm):
 
 
 class DocumentEditForm(forms.ModelForm):
+    file = forms.FileField(widget=ConstrainedFileWidget())
 
     class Meta:
         model = models.Document

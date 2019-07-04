@@ -10,7 +10,9 @@
 
     {% if show_edit_links and user_can_edit_document %}
         <div class="dc-document-actions">
-            <a class="dc-document-edit-link" href="{% url 'document_catalogue:document_edit' document.pk %}">Edit</a>
+            <a class="dc-document-edit-link btn btn-primary" href="{% url 'document_catalogue:document_edit' document.pk %}" role="button">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+            </a>
         </div>
     {% endif %}
 

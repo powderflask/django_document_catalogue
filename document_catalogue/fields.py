@@ -1,5 +1,5 @@
 """
-Taken directly from django-constrainedfilefield  https://github.com/mbourqui/django-constrainedfilefield
+ConstrainedFileField Taken directly from django-constrainedfilefield  https://github.com/mbourqui/django-constrainedfilefield
 """
 import os
 
@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class ConstrainedFileField(models.FileField):
     """
-    A FielField with additional constraints. Namely, the file size and type can be restricted. If
+    A FileField with additional constraints. Namely, the file size and type can be restricted. If
     using the types, the magic library is required. Setting neither a file size nor type behaves
     like a regular FileField.
     Parameters
@@ -123,3 +123,7 @@ class ConstrainedFileField(models.FileField):
             return super(ConstrainedFileField).__str__()
         else:
             return self.__class__.__name__
+
+class ConstrainedFileWidget(forms.widgets.ClearableFileInput):
+    template_name = 'document_catalogue/include/inline_clearable_file_input.html'
+

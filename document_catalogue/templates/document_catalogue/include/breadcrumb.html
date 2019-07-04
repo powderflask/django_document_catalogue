@@ -1,13 +1,12 @@
-<p class="dc-breadcrumb">
-    >
+<ol class="dc-breadcrumb breadcrumb">
     {% for cat in breadcrumb %}
-        <a class="dc-category" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a> >
+        <li><a class="dc-category" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
     {% endfor %}
     {% if current_category_link %}
-        <span class="dc-current-category">
-            <a class="dc-category" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
-        </span>
+        <li class="active">
+            <a class="dc-current-category dc-category" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+        </li>
     {% else %}
-        <span class="dc-category dc-current-category">{{ category.name }}</span>
+        <li><span class="dc-category">{{ category.name }}</span></li>
     {% endif %}
-</p>
+</ol>
