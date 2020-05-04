@@ -1,10 +1,14 @@
+.dc-category-list table {
+    width: 100%;
+}
+.large {
+    font-size: 1.5em;
+}
+
 .dropzone {
     border: none;
     padding: 0;
     background: #f5f5f5;
-}
-table {
-    width: 100%;
 }
 .dc-dropzone .dz-message {
     font-size: small;

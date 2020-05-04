@@ -117,7 +117,7 @@ $(document).ready(function() {
                 this.on("success", function (file, response) {
                     // console.log(response);  // sanity check
                     let document_item = response.document_item;
-                    let target = $(file.previewTemplate).closest('li').find('> .dc-document-list');
+                    let target = $(file.previewTemplate).closest('.dc-category-list').find('> .dc-document-list');
                     target.append(document_item);
                     target.find('.dc-document-item:last-child .dc-document-link').addClass('text-success');
                 });

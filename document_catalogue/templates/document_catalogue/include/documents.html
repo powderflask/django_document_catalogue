@@ -1,22 +1,36 @@
 {% if document_list %}
     {% for document in document_list %}
         <li class="dc-document-item list-group-item">
-            <a class="dc-document-link" href="{{ document.get_absolute_url }}" title="{{ document.description }}">
-                <span class="glyphicon glyphicon-file"></span>
-                {{ document.title }}
-                <span class="dc-document-actions">
+            <div class="media">
+              <div class="media-left media-middle">
+                <a class="dc-document-download media-object large" href="{{ document.file.url }}" title="Download File">
+                    <span class="glyphicon glyphicon-file"></span>
+                </a>
+              </div>
+              <div class="media-body">
+                <a class="dc-document-download" href="{{ document.file.url }}" title="Download File">
+                    <h4 class="media-heading">{{ document.title }}</h4>
+                </a>
+                {% if document.description %}
+                    <p><small>{{ document.description }}</small></p>
+                {% endif %}
+              </div>
+              <div class="media-right media-middle">
+                <span class="dc-document-actions media-object">
                     {% if user_can_edit_document %}
-                        <a class="dc-document-edit" href="{% url 'document_catalogue:document_edit' document.pk %}" title="Edit Document Details">
+                        <a class="btn dc-document-edit" href="{% url 'document_catalogue:document_edit' document.pk %}" title="Edit Document Details">
                             <span class="text-default glyphicon glyphicon-edit" aria-hidden="true"></span>
                             <span class="sr-only">Edit</span>
                         </a>
+                    {% else %}
+                        <a class="btn dc-document-link" href="{{ document.get_absolute_url }}" title="Document Details">
+                            <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+                            <span class="sr-only">Details</span>
+                        </a>
                     {% endif %}
-                    <a class="dc-document-download" href="{{ document.file.url }}" title="Download File">
-                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                        <span class="sr-only">Download</span>
-                    </a>
                 </span>
-            </a>
+              </div>
+            </div>
         </li>
     {% endfor %}
 {% endif %}
