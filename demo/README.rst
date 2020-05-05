@@ -21,6 +21,7 @@ Run migrate, createsuperuser, and loaddata to configure DB::
     > manage.py migrate
     > manage.py createsuperuser
     > manage.py loaddata categories.json documents.json
+    > manage.py collectstatic
 
 Copy fixture media to private-media root (as defined in demo/settings)::
 
