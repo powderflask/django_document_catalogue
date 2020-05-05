@@ -116,11 +116,23 @@ class DocumentViewMixin(DocumentPkMixin):
         })
         return ctx
 
+    def get_document_absolute_uri(self):
+        return self.request.build_absolute_uri(self.document.get_download_url())
+
 
 class DocumentDetailView(CatalogueViewMixin, DocumentViewMixin,  generic.DetailView):
     """ Display detailed information about a single document """
     template_name = 'document_catalogue/document_detail.html'
     model = Document
+
+
+@permission_required(permissions.user_can_view_document_catalogue)
+class DocumentDownloadView(DocumentPkMixin,  generic.RedirectView):
+    """ Redirect to the file URL """
+
+    def get_redirect_url(self, *args, **kwargs):
+        """ Return the document's file download URL """
+        return self.document.file.url
 
 
 @permission_required(permissions.user_can_edit_document)

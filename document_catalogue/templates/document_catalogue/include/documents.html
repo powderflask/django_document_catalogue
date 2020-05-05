@@ -3,12 +3,12 @@
         <li class="dc-document-item list-group-item">
             <div class="media">
               <div class="media-left media-middle">
-                <a class="dc-document-download media-object large" href="{{ document.file.url }}" title="Download File">
+                <a class="dc-document-download media-object large" href="{{ document.get_download_url }}" title="Download File">
                     <span class="glyphicon glyphicon-file"></span>
                 </a>
               </div>
               <div class="media-body">
-                <a class="dc-document-download" href="{{ document.file.url }}" title="Download File">
+                <a class="dc-document-download" href="{{ document.get_download_url }}" title="Download File">
                     <h4 class="media-heading">{{ document.title }}</h4>
                 </a>
                 {% if document.description %}

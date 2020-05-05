@@ -2,8 +2,8 @@
 
 <dl class="dl-horizontal">
     <div class="dc-document-file">
-        <dt>Download:</dt>
-        <dd class="value"><a class="dc-document-download" href="{{ document.file.url }}">{{ document.file.url }}</a></dd>
+        <dt>Download Link:</dt>
+        <dd class="value"><a class="dc-document-download" href="{{ document.get_download_url }}">{{ view.get_document_absolute_uri }}</a></dd>
     </div>
     <div class="'dc-document-description">
         <dt>Description:</dt>

@@ -103,6 +103,9 @@ class Document(models.Model):
     def get_absolute_url(self):
         return reverse('document_catalogue:document_detail', kwargs={'pk': self.pk, })
 
+    def get_download_url(self):
+        return reverse('document_catalogue:document_download', kwargs={'pk': self.pk, })
+
     def get_filetype(self):
         name, extension = os.path.splitext(self.file.name)
         return extension[1:]

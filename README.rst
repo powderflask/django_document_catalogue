@@ -10,13 +10,12 @@ Use Case:
  * documents are organized in hierarchical categories;
 
 Features:
- * URLs for direct access to document, category, and file download
- * Opt-in private files (protected by login)
+ * permanent URLs for direct access to document, category, and file download (even if filename changes)
+ * opt-in private files (file downloads protected by login)
  * plugin permissions settings
- * upload / edit / delete documents via django admin
-
-    * optionally, enable user-facing edit / upload / delete views and AJAX API
-    * plays nice with dropzone for simple file uploads
+ * upload / edit / delete documents via django admin, or..,
+ * opt-in user-facing edit / upload / delete views and AJAX API
+ * plays nice with dropzone for drag-and-drop file uploads
 
 Dependencies:
  * python 3
@@ -47,7 +46,7 @@ Quick start
         ...
         'document_catalogue',
         'mptt',
-        'private_storage',    # optional - opt out with settings.USE_PRIVATE_FILES = False
+        'private_storage',    # optional: if settings.USE_PRIVATE_FILES
     ]
     
 2. Configure settings
@@ -55,9 +54,11 @@ Quick start
   * private storage settings (if using)
   * override document catalogue default settings (if required)
 
-3. Include the document_catalogue URLconf in your project urls.py like this::
+3. Include the document_catalogue URLconf (and optionally private_storage)::
 
     path('documents/', include('document_catalogue.urls')),
+    path('private-media/', include('private_storage.urls')),   # optional: if settings.USE_PRIVATE_FILES
+
 
 4. Run `python manage.py migrate` to create the document_catalogue models.
 

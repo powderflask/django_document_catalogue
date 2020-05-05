@@ -18,6 +18,10 @@ urlpatterns = [
          view = views.DocumentDetailView.as_view(),
          name = 'document_detail'
     ),
+    path('download/<int:pk>/',
+         view=views.DocumentDownloadView.as_view(),
+         name='document_download'
+         ),
 ]
 
 if settings.DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS:

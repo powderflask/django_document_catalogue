@@ -1,5 +1,5 @@
 {# document item as it should appear after Ajax upload, e.g., using dropzone #}
     <div class="dc-document-item">
         <a class="dc-document-link" href="{{ document.get_absolute_url }}">{{ document.title }}</a>
-        <a class="dc-document-download" href="{{ document.file.url }}">{{ document.file.url }}</a>
+        <a class="dc-document-download" href="{{ document.get_download_url }}">{{ document.get_download_url }}</a>
     </div>
