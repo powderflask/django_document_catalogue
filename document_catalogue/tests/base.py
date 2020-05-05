@@ -51,7 +51,7 @@ def create_document_categories(category_names=(('Top Level Category 1', (('Sub-C
 
 
 def generate_file(filename, file_type='txt'):
-    filename = '{media}{filename}'.format(media=settings.MEDIA_ROOT, filename=filename)
+    filename = '{media}{filename}'.format(media=settings.BASE_DIR, filename=filename)
     def write_text_file(filename, content):
         with open(filename, 'wb') as myfile :
             myfile.write(content)

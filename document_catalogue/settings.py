@@ -3,6 +3,11 @@
 from django.conf import settings
 
 
+# To use django-private-storage as storage backend for supporting documentation files
+# If True, pip install django-private-storage and configure settings for private file storage as per docs
+# Intended to be set at start of project and not changed - schema and data migration required if this changes!
+USE_PRIVATE_FILES = getattr(settings, 'DOCUMENT_CATALOGUE_USE_PRIVATE_FILES', True)
+
 # IMPORTANT: this only prevents access to the Catalogue views - the documents are served as media, anyone with thier URL can download them!
 DOCUMENT_CATALOGUE_LOGIN_REQUIRED = getattr(settings, 'DOCUMENT_CATALOGUE_LOGIN_REQUIRED', True)
 
@@ -16,11 +21,12 @@ DOCUMENT_CATALOGUE_PERMISSIONS = getattr(settings, 'DOCUMENT_CATALOGUE_PERMISSIO
 DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS = getattr(settings, 'DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS', False)
 
 # Root directory for file uploads to the document catalogue
-DOCUMENT_CATALOGUE_MEDIA_ROOT = getattr(settings, 'DOCUMENT_CATALOGUE_MEDIA_ROOT', settings.MEDIA_ROOT+'documents')
+# If private storage is used, media_root MUST be a sub-directory of PRIVATE_STORAGE_ROOT
+DOCUMENT_CATALOGUE_MEDIA_ROOT = getattr(settings, 'DOCUMENT_CATALOGUE_MEDIA_ROOT', 'documents/')
 
 # Upload file settings - constrain the file content_types and max. filesize for document file uploads.
 # None to allow any file type - eliminates dependency on python-magic and libmagic, which are included only if a whitelist is supplied.
 #   e.g.  DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST = ('application/pdf', 'image/png', 'image/jpg')
 DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST = getattr(settings,'DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST', None)
-# max. size in Mb, None or 0 for no limit
-DOCUMENT_CATALOGUE_MAX_FILESIZE = getattr(settings, 'DOCUMENT_CATALOGUE_MAX_FILESIZE', 10)
+# max. size in bytes, None for no limit
+DOCUMENT_CATALOGUE_MAX_FILESIZE = getattr(settings, 'DOCUMENT_CATALOGUE_MAX_FILESIZE', 10 * 1024 * 1024)

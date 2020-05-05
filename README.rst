@@ -11,7 +11,7 @@ Use Case:
 
 Features:
  * URLs for direct access to document, category, and file download
- *  < 'semi-private' file download URL's > (FUTURE)
+ * Opt-in private files (protected by login)
  * plugin permissions settings
  * upload / edit / delete documents via django admin
 
@@ -22,6 +22,12 @@ Dependencies:
  * python 3
  * django 2
  * `django-mptt <https://django-mptt.readthedocs.io/en/latest/index.html>`_
+
+Opt-in:
+ * `django-private-storage <https://pypi.org/project/django-private-storage/>`_
+
+ or
+
  * `django-constrainedfilefield <https://github.com/mbourqui/django-constrainedfilefield>`_
  * `python-magic <https://github.com/ahupp/python-magic>`_ (if you want to validate file content_types)
 
@@ -35,28 +41,30 @@ Quick start
 * `brew install libmagic` (for OSX using homebrew, see `python-magic docs <https://github.com/ahupp/python-magic#installation>`_ for more info.
 * `python3 setup.py test`   (to run app test suite)
 
-1. Add "document_catalogue" and "mptt" to your INSTALLED_APPS setting like this::
+1. Add "document_catalogue" and "mptt"  (and optionally "private_storage") to your INSTALLED_APPS settings::
 
-    ```
     INSTALLED_APPS = [
         ...
         'document_catalogue',
         'mptt',
+        'private_storage',    # optional - opt out with settings.USE_PRIVATE_FILES = False
     ]
-    ```
     
-2. Include the document_catalogue URLconf in your project urls.py like this::
+2. Configure settings
 
-    ```
+  * private storage settings (if using)
+  * override document catalogue default settings (if required)
+
+3. Include the document_catalogue URLconf in your project urls.py like this::
+
     path('documents/', include('document_catalogue.urls')),
-    ```
 
-3. Run `python manage.py migrate` to create the document_catalogue models.
+4. Run `python manage.py migrate` to create the document_catalogue models.
 
-4. Start the development server and visit http://127.0.0.1:8000/admin/
+5. Start the development server and visit http://127.0.0.1:8000/admin/
    to create some Categories and Documents (you'll need the Admin app enabled).
 
-5. Visit http://127.0.0.1:8000/documents/ to browse your catalogue by category.
+6. Visit http://127.0.0.1:8000/documents/ to browse your catalogue by category.
 
 
 Next Steps

@@ -85,11 +85,11 @@ class SuccessDocumentViewTests(BaseTestWithUsers) :
         myfile = base.generate_file('Test.txt', file_type='txt')
         with open(myfile.name, 'r') as file:
             new_title = 'A Brave New World!'
-            post_data = {'file' : file, 'title' : new_title}
+            post_data = {'file' : file, 'title' : new_title}  # missing required category
             url = reverse('document_catalogue:document_edit', kwargs={'pk':document.pk})
             response = self.client.post(url, data=post_data)
             self.assertEqual(response.status_code, 200, "Post to document edit view returned non-success status code.")
-            self.assertIn(b'form-errors', response.content, "Invalid post data response dose not contain form-errors")
+            self.assertIn(b'form-group has-error', response.content, "Invalid post data response does not contain form-errors")
         # Cleanup
         os.remove(myfile.name)
 

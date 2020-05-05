@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'document_catalogue.apps.DocumentCatalogueConfig',
     'mptt',
+    'private_storage',
 ]
 
 MIDDLEWARE = [
@@ -96,8 +97,13 @@ STATICFILES_DIRS = (
     # '/path/to/some_other_static_media',
 )
 
+# django-private-files  (private document downloads)
+PRIVATE_STORAGE_ROOT = os.path.join(BASE_DIR, "private-media/")
+PRIVATE_STORAGE_AUTH_FUNCTION = 'private_storage.permissions.allow_authenticated'
+
 # Document Catalogue overrides
 DOCUMENT_CATALOGUE_LOGIN_REQUIRED = True
 DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS = True
 DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST = ('text/plain', )
+DOCUMENT_CATALOGUE_MAX_FILESIZE = 1 * 1024 * 1024
 

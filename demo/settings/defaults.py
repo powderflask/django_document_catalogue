@@ -23,8 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@tcd$!wu@vx#l!773b)g9bc@(@!^$y2^9x)85nygh-8zr654nn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-STANDALONE_MODE = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'document_catalogue.apps.DocumentCatalogueConfig',
     'mptt',
+    'private_storage',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'demo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'demo/templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'demo/../templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -72,17 +72,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'demo.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
@@ -120,7 +109,7 @@ USE_TZ = True
 # Media files (document uploads)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/#serving-uploaded-files-in-development
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "demo/media/")
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media/")
 MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
@@ -129,11 +118,15 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "demo/static/"),
+    os.path.join(BASE_DIR, "static/"),
     # '/path/to/some_other_static_media',
 )
 
-FIXTURE_DIRS = [os.path.join(BASE_DIR, "demo/fixtures/"),]
+FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures/"), ]
+
+# django-private-files  (private document downloads)
+PRIVATE_STORAGE_ROOT = os.path.join(os.path.dirname(BASE_DIR), "private-media/")
+PRIVATE_STORAGE_AUTH_FUNCTION = 'private_storage.permissions.allow_authenticated'
 
 # Document Catalogue overrides
 DOCUMENT_CATALOGUE_LOGIN_REQUIRED = True

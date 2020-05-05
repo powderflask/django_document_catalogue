@@ -11,6 +11,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
 
     path('documents/', include('document_catalogue.urls')),
+
+    path('private-media/', include('private_storage.urls')),
 ]
 
 if settings.STANDALONE_MODE:

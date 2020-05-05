@@ -12,5 +12,5 @@
 # TECHNOLOGY COLOPHON
 
     Python3, HTML5, JavaScript
-    Django, django-mptt, django-constrainedfilefield, python-magic, libmagic
+    Django, django-mptt, django-private-storage django-constrainedfilefield, python-magic, libmagic
     jQuery, dropzone,
