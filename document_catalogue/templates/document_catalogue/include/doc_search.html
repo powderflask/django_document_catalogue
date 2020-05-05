@@ -1,0 +1,5 @@
+    <select id="doc-search" class="select2-ajax-search load-on-change"
+            data-url="{% url 'document_catalogue:api_search' %}"
+    >
+        <option></option>  {# blank option for placeholder - see select2 docs. #}
+    </select>

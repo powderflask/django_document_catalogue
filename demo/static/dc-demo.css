@@ -20,3 +20,11 @@
     border-style: solid;
     background-color: #f5f5f5;
 }
+
+.search {
+    position: relative;
+    top: -25px;
+}
+.select2-ajax-search {
+    min-width: 300px;
+}

@@ -1,18 +1,36 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Django Document Catalogue Demo</title>
 
-    {% block extra_head %}{% endblock %}
-
     <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'dropzone.min.css'%}" type="text/css" rel="stylesheet">
+    <link href="{% static 'dc-demo.css' %}" type="text/css" rel="stylesheet">
+
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <div class="page-header">
-        <a href="{% url 'document_catalogue:catalogue_list' %}"><h1>Document Catalogue Demo</h1></a>
+    <div id="DocumentCatalogueManager" data-max-filesize="10" data-accepted-files="image/*, application/pdf"></div>
+    <div class="container">
+        <div class="page-header">
+            <a href="{% url 'document_catalogue:catalogue_list' %}"><h1>Document Catalogue Demo</h1></a>
+            <div class="search pull-right">
+                {% include 'document_catalogue/include/doc_search.html' %}
+            </div>
+        </div>
+
+        {% block dc-content %} {% endblock %}
     </div>
-    {% block content %}{% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="{% static 'dropzone.js' %}"></script>
+    <script src="{% static 'document_catalogue/document_catalogue.js' %}"></script>
+
+    <block scripts></block>
 </body>
 </html>

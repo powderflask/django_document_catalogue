@@ -7,8 +7,9 @@
 <body>
     {# default settings for AJAX API requests #}
     <div id="DocumentCatalogueManager" data-max-filesize="10" data-accepted-files="image/*, application/pdf"></div>
-
-    {% block dc-content %}
-    {% endblock %}
+    <div class="container">
+        {% block dc-content %}
+        {% endblock %}
+    </div>
 </body>
 </html>

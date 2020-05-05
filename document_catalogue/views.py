@@ -1,11 +1,13 @@
 from importlib import import_module
 from functools import partial
+from itertools import groupby
 
 from django.utils.functional import cached_property
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponseForbidden
 from django.template.loader import get_template
+from django.db.models import Q
 from django.views import generic
 
 from .models import Document, DocumentCategory
@@ -205,3 +207,32 @@ class DocumentAjaxAPI(CatalogueViewMixin, CategorySlugMixin, DocumentPkMixin, Aj
             return self.render_to_json_response(json_context)
         else:
             return HttpResponseForbidden('Invalid request. Document NOT deleted.')
+
+    def get(self, request, *args, **kwargs):
+        """ Ajax Search for documents matching search term in ?q= request param """
+        search_term = request.GET.get('q', None)
+
+        def format_select2(document):
+            return {
+                'id'  : document.get_absolute_url(),
+                'text': document.title}
+
+        search_options = []
+        # Format options as select2 data objects
+        if search_term:  # retrieve search results, if a search_term is given
+            filter = Q(title__icontains=search_term) | \
+                     Q(category__name__icontains=search_term)
+            docs = Document.objects.published().filter( filter ).select_related('category')
+
+            search_options = [
+                {'text': category.name, 'children' : [format_select2(doc) for doc in group] }
+                for category, group in groupby(docs, lambda d: d.category)
+            ]
+
+        else:  # Recently updated documents.
+            recently_updated = Document.objects.published().order_by('-update_date')[:10]
+            if recently_updated:
+                options = [format_select2(doc) for doc in recently_updated]
+                search_options = [{'text' : 'Recently Updated', 'children' :  options},]
+
+        return self.render_to_json_response({'options':search_options})

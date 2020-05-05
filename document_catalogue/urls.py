@@ -21,7 +21,12 @@ urlpatterns = [
     path('download/<int:pk>/',
          view=views.DocumentDownloadView.as_view(),
          name='document_download'
-         ),
+    ),
+    # AJAX API
+    path('search/',
+         view=views.DocumentAjaxAPI.as_view(),
+         name="api_search"
+    ),
 ]
 
 if settings.DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS:

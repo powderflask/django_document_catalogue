@@ -165,4 +165,23 @@ $(document).ready(function() {
     // Main
     if ($('#DocumentCatalogueManager').length > 0)  // only applies if a DocumentManager component is found in the markup.
         DocumentCatalogueManager.configure();
+
+    // Select2 Ajax Search
+    $('.select2-ajax-search').select2({
+        placeholder: 'Start typing to find Document',
+        ajax: {
+            url:  $('.select2-ajax-search').data('url'),
+            processResults: function (data) {
+                // Transforms the top-level key of the response object from 'items' to 'results'
+                return {
+                    results: data.options
+                };
+            }
+        },
+    });
+    $("select.load-on-change").change(function() {
+        //alert('selected: ' + $(this).val());
+        window.location.href = $(this).val();
+    });
+
 });
