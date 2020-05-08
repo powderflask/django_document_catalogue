@@ -7,9 +7,7 @@ ADMINS = ()
 MANAGERS = ADMINS
 
 
-# Stand alone mode indicates that the server will be running using
 # the django dev server so we will need to serve the static files (see urls.py)
-STANDALONE_MODE = False
 DEBUG = True
 
 INTERNAL_IPS = ['207.34.177.126', ]  # List of developer's IP's who need to debug on production server
