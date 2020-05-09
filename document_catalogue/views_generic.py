@@ -4,12 +4,12 @@ from django import http
 from django.views import generic
 
 
-class JSONResponseMixin(object):  # TODO: this is taken from django 1.11. The 2.2 version doesn't have default value for context
+class JSONResponseMixin:
     """
     A mixin that can be used to render a JSON response.
-    Taken directly from : https://docs.djangoproject.com/en/1.11/topics/class-based-views/mixins/#more-than-just-html
+    Taken directly from : https://docs.djangoproject.com/en/2.2/topics/class-based-views/mixins/#more-than-just-html
     """
-    def render_to_json_response(self, context={}, **response_kwargs):
+    def render_to_json_response(self, context, **response_kwargs):
         """
         Returns a JSON response, transforming 'context' to make the payload.
         """

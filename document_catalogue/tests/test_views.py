@@ -213,8 +213,8 @@ class SuccessAjaxApiTests(BaseTestWithUsers) :
         self.assertIn(category_slug, document.file.path, "Document path does not include category slug.")
         # The filename may get altered when saved, but should contain the name and extension of the original
         name, extension = os.path.splitext(filename)
-        self.assertIn(name, document.file.path, "Document path does not contain origial uploaded file name.") # TODO: both this line and the one below misspell "original". I didn't want to correct in case the misspelling was repeated in such a way that it might affect the permissions.
-        self.assertIn(extension, document.file.path, "Document path does not contain origial uploaded file name.")
+        self.assertIn(name, document.file.path, "Document path does not contain original uploaded file name.")
+        self.assertIn(extension, document.file.path, "Document path does not contain original uploaded file name.")
         # Cleanup
         os.remove(myfile.name)
 

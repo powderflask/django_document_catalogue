@@ -29,11 +29,8 @@ def get_permissions_context(view):
 
 
 @permission_required(permissions.user_can_view_document_catalogue)
-class CatalogueViewMixin(generic.View):
+class CatalogueViewMixin(generic.base.ContextMixin, generic.View):
     """ Mixin for all Document Views """
-
-    # TODO: base class doesn't have a get_context_data()? Do you mean to use ContextMixin? Also for CategoryListViewMixin and DocumentViewMixin
-
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx.update({
@@ -43,10 +40,10 @@ class CatalogueViewMixin(generic.View):
         return ctx
 
 
-class CategorySlugMixin:
+class CategorySlugViewMixin:
     """ Mixin for views that take a category slug as a URL arg """
     @property
-    def category_slug(self):  #TODO: is this assuming the class that this is being mixed into already has kwargs? Also below in DocumentPkMixin.
+    def category_slug(self):
         return self.kwargs.get('slug', None)
 
     @cached_property
@@ -68,7 +65,7 @@ class DocumentPkMixin:
             raise Http404
 
 
-class DocumentListMixin(CatalogueViewMixin, CategorySlugMixin):
+class DocumentListMixin(CatalogueViewMixin, CategorySlugViewMixin):
     """Mixin for document list functions."""
     def get_queryset(self):
         qs = Document.objects.published().select_related('category', )
@@ -92,7 +89,7 @@ class DocumentCatalogueListView(DocumentListMixin, generic.ListView):
         return ctx
 
 
-class CategoryListViewMixin(CategorySlugMixin):
+class CategoryListViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
     """ Mixin for views that navigate categories or display a list of cateogries """
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -109,7 +106,7 @@ class DocumentCategoryListView(CategoryListViewMixin, DocumentListMixin, generic
     template_name = 'document_catalogue/documents_by_category_list.html'
 
 
-class DocumentViewMixin(DocumentPkMixin):
+class DocumentViewMixin(generic.base.ContextMixin, DocumentPkMixin):
     """ Mixins for views that display a document """
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -160,7 +157,7 @@ class DocumentDeleteView(CatalogueViewMixin, DocumentViewMixin, generic.DeleteVi
         return reverse('document_catalogue:category_list', kwargs={'slug':self.document.category.slug})
 
 
-class DocumentAjaxAPI(CatalogueViewMixin, CategorySlugMixin, DocumentPkMixin, AjaxOnlyViewMixin):
+class DocumentAjaxAPI(CatalogueViewMixin, CategorySlugViewMixin, DocumentPkMixin, AjaxOnlyViewMixin):
     """
         Async API for document actions
         Plays nice with document_catalogue.js and dropzone
