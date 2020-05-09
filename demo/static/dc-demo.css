@@ -1,6 +1,13 @@
 .dc-category-list table {
     width: 100%;
 }
+.dc-document-download .glyphicon {
+    font-size: 1.5em;
+}
+.dc-document-actions {
+    width: 85px;
+}
+
 .large {
     font-size: 1.5em;
 }

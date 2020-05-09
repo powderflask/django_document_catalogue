@@ -103,6 +103,9 @@ class Document(models.Model):
     def get_absolute_url(self):
         return reverse('document_catalogue:document_detail', kwargs={'pk': self.pk, })
 
+    def get_edit_url(self):
+        return reverse('document_catalogue:document_edit', kwargs={'pk': self.pk, })
+
     def get_download_url(self):
         return reverse('document_catalogue:document_download', kwargs={'pk': self.pk, })
 
