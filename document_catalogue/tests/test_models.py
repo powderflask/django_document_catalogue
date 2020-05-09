@@ -7,6 +7,7 @@ from django import forms
 from document_catalogue import models
 from . import base
 
+
 # Create tests for models here.
 
 class CategoryTests(TestCase):
@@ -56,7 +57,7 @@ class DocumentTests(TestCase):
 
     def test_get_filetype(self):
         filetype = self.document.get_filetype()
-        self.assertEqual(filetype, 'txt', 'get_filetype returns incorrect type %s'%filetype)
+        self.assertEqual(filetype, 'txt', 'get_filetype returns incorrect type %s' % filetype)
 
     def test_document_directory_path(self):
         instance = lambda: None  # a mutable null object

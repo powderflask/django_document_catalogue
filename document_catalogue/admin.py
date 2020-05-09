@@ -3,10 +3,11 @@ from mptt.admin import DraggableMPTTAdmin
 from .models import DocumentCategory, Document
 
 
+# TODO: both of these classes can use the register decotator
 class CategoryAdmin(DraggableMPTTAdmin):
     list_display = ('tree_actions', 'indented_title')
     list_display_links = ('indented_title',)
-    prepopulated_fields = {"slug" : ("name",)}
+    prepopulated_fields = {'slug': ('name',)}
 admin.site.register(DocumentCategory, CategoryAdmin)
 
 

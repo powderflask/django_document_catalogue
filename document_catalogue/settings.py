@@ -12,7 +12,7 @@ USE_PRIVATE_FILES = getattr(settings, 'DOCUMENT_CATALOGUE_USE_PRIVATE_FILES', Tr
 DOCUMENT_CATALOGUE_LOGIN_REQUIRED = getattr(settings, 'DOCUMENT_CATALOGUE_LOGIN_REQUIRED', True)
 
 # Fine scale permissions (default permissions use DOCUMENT_CATALOGUE_LOGIN_REQUIRED, but that setting may be disabled by custom permissions)
-# Value is a dotted path to a permissions module or object with the required permisisons functions - see permissions.py
+# Value is a dotted path to a permissions module or object with the required permissions functions - see permissions.py
 DOCUMENT_CATALOGUE_PERMISSIONS = getattr(settings, 'DOCUMENT_CATALOGUE_PERMISSIONS', 'document_catalogue.permissions')
 
 # Enable document editing URL's and the Ajax document API

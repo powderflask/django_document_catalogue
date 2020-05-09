@@ -18,6 +18,6 @@ class DocumentEditForm(forms.ModelForm):
         fields = ('title', 'description', 'category', 'is_published', 'file')
 
         widgets = {
-            'title' : forms.TextInput(attrs={'placeholder':'Document Title (defaults to file name)'}),
-            'description' : forms.Textarea(attrs={'rows':2, 'placeholder':'Optional Description'}),
+            'title'      : forms.TextInput(attrs={'placeholder': 'Document Title (defaults to file name)'}),
+            'description': forms.Textarea(attrs={'rows': 2, 'placeholder': 'Optional Description'}),
         }

@@ -6,7 +6,7 @@ from django.db import models
 import mptt.models
 
 
-class DocumentCategory(mptt.models.MPTTModel) :
+class DocumentCategory(mptt.models.MPTTModel):
     """
         A hierarchical category system for assets
     """
@@ -18,24 +18,24 @@ class DocumentCategory(mptt.models.MPTTModel) :
 
     objects = mptt.models.TreeManager()  # this is the default manager, but pydev was being irritating - just to shut-up pydev - can be removed without any other effect
 
-    class MPTTMeta :
+    class MPTTMeta:
         order_insertion_by = ['slug']
 
-    class Meta :
-        verbose_name_plural = "Categories"
+    class Meta:
+        verbose_name_plural = 'Categories'
         ordering = ['slug']
 
-    def __str__(self) :
+    def __str__(self):
         return str(self.name)
 
     def get_absolute_url(self):
         return reverse('document_catalogue:category_list', kwargs={'slug': self.slug, })
 
-    def has_children(self) :
+    def has_children(self):
         """ Return true if this DocumentCategory has dependent objects lower in the hierarchy """
         return self.get_descendant_count() > 0
 
-    def document_count(self) :
+    def document_count(self):
         """ Return the total number of documents uploaded for this category """
         return self.document_set.count()
 
@@ -50,7 +50,7 @@ class DocumentManager(models.Manager):
         return self.get_queryset().filter(category__slug=category_slug)
 
 
-def document_upload_path_callback(instance, filename) :
+def document_upload_path_callback(instance, filename):
     """ Dynamic upload path based on file instance """
     path = "%s%s/%s" % (settings.DOCUMENT_CATALOGUE_MEDIA_ROOT, instance.category.slug, filename)
     return path

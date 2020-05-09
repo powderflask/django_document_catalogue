@@ -4,7 +4,7 @@ from django import http
 from django.views import generic
 
 
-class JSONResponseMixin(object):
+class JSONResponseMixin(object):  # TODO: this is taken from django 1.11. The 2.2 version doesn't have default value for context
     """
     A mixin that can be used to render a JSON response.
     Taken directly from : https://docs.djangoproject.com/en/1.11/topics/class-based-views/mixins/#more-than-just-html
@@ -55,12 +55,12 @@ class AjaxOnlyViewMixin(JSONResponseMixin, generic.base.ContextMixin, generic.ba
             Sub-classes must override this method to do something sensible.
         """
         response_data = {
-            'dummy'   : 'some value',
+            'dummy': 'some value',
         }
         return self.render_to_json_response(response_data)
 
     def _form_errors_context(self, form, strip_tags=False):
         return {
-            'success' : False,
-            'errors' : self.form_errors_template.render(context={'form':form, 'strip_tags':strip_tags})
+            'success': False,
+            'errors' : self.form_errors_template.render(context={'form': form, 'strip_tags': strip_tags})
         }

@@ -8,8 +8,10 @@ from django.utils.text import slugify
 from document_catalogue import models
 from . import settings
 
+
 def anonymous_user():
     return AnonymousUser()
+
 
 def create_user(username='myUser', permissions=()):
     """
@@ -17,8 +19,8 @@ def create_user(username='myUser', permissions=()):
         Common DC permissions:  ('Can add document', 'Can change document', 'Can delete document')
     """
     user = User.objects.create_user(
-        first_name=username.capitalize(), last_name="Lastname", email="{username}@example.com".format(username=username),
-        username=username, password="password",
+        first_name=username.capitalize(), last_name='Lastname', email='{username}@example.com'.format(username=username),
+        username=username, password='password',
     )
     if permissions:
         permissions = Permission.objects.filter(name__in=permissions)
@@ -52,8 +54,9 @@ def create_document_categories(category_names=(('Top Level Category 1', (('Sub-C
 
 def generate_file(filename, file_type='txt'):
     filename = '{media}{filename}'.format(media=settings.BASE_DIR, filename=filename)
+
     def write_text_file(filename, content):
-        with open(filename, 'wb') as myfile :
+        with open(filename, 'wb') as myfile:
             myfile.write(content)
             return myfile
 
@@ -63,7 +66,7 @@ def generate_file(filename, file_type='txt'):
     if file_type is 'html':
         return write_text_file(filename, b'<!DOCTYPE html><html><head></head><body><p>Hello World</p></body></html>')
 
-    raise Exception("Don't know how to generate file of type %s"%file_type)
+    raise Exception("Don't know how to generate file of type %s" % file_type)
 
 
 def generate_simple_uploaded_file(filename, file_type='txt'):
@@ -73,14 +76,14 @@ def generate_simple_uploaded_file(filename, file_type='txt'):
     if file_type is 'html':
         return SimpleUploadedFile(filename, b'<!DOCTYPE html><html><head></head><body><p>Hello World</p></body></html>')
 
-    raise Exception("Don't know how to generate file of type %s"%file_type)
+    raise Exception("Don't know how to generate file of type %s" % file_type)
 
 
 def create_document(filename='hello.txt', file_type='txt', user=None, category=None):
     document = models.Document.objects.create(
-        category = category or models.DocumentCategory.objects.all().first(),
-        user = user or create_user(permissions=('Can add document')),
-        is_published = True,
-        file = generate_simple_uploaded_file(filename, file_type),
+        category=category or models.DocumentCategory.objects.all().first(),
+        user=user or create_user(permissions=('Can add document')),
+        is_published=True,
+        file=generate_simple_uploaded_file(filename, file_type),
     )
     return document

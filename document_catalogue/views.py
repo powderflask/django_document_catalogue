@@ -32,10 +32,12 @@ def get_permissions_context(view):
 class CatalogueViewMixin(generic.View):
     """ Mixin for all Document Views """
 
+    # TODO: base class doesn't have a get_context_data()? Do you mean to use ContextMixin? Also for CategoryListViewMixin and DocumentViewMixin
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx.update({
-            'show_edit_links' : True if settings.DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS else False,
+            'show_edit_links': True if settings.DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS else False,
             **get_permissions_context(self),
         })
         return ctx
@@ -44,7 +46,7 @@ class CatalogueViewMixin(generic.View):
 class CategorySlugMixin:
     """ Mixin for views that take a category slug as a URL arg """
     @property
-    def category_slug(self):
+    def category_slug(self):  #TODO: is this assuming the class that this is being mixed into already has kwargs? Also below in DocumentPkMixin.
         return self.kwargs.get('slug', None)
 
     @cached_property
@@ -166,11 +168,11 @@ class DocumentAjaxAPI(CatalogueViewMixin, CategorySlugMixin, DocumentPkMixin, Aj
     def save_document(self):
         file = self.request.FILES['file']
         document = Document(
-            user = self.request.user,
-            title = file.name,
+            user=self.request.user,
+            title=file.name,
             category=self.category,
-            is_published = True,
-            file = file
+            is_published=True,
+            file=file
         )
         document.save()
         return document
@@ -182,21 +184,21 @@ class DocumentAjaxAPI(CatalogueViewMixin, CategorySlugMixin, DocumentPkMixin, Aj
         form_class = forms.DocumentUploadForm
         document_template = get_template('document_catalogue/include/documents.html')
 
-        def get_form() :
-             return form_class(data=request.POST, files=request.FILES)
+        def get_form():
+            return form_class(data=request.POST, files=request.FILES)
 
         # Use the Upload Form to validate the file (mime type and size)
         form = get_form()
         if form.is_valid():
             document = self.save_document()
-            html = document_template.render( {'document_list': (document, ), **get_permissions_context(self)} ),
+            html = document_template.render({'document_list': (document, ), **get_permissions_context(self)}),
 
             return self.render_to_json_response({
                 'success': True,
-                'document_item' : html,
+                'document_item': html,
             })
         else:  # Common error handling is completed by dropzone -- this is a hard-fail fallback.
-            return HttpResponseForbidden('Invalid request: Form errors %s'%', '.join(e.as_text() for e in form.errors.values()))
+            return HttpResponseForbidden('Invalid request: Form errors %s' % ', '.join(e.as_text() for e in form.errors.values()))
 
     def delete(self, request, *args, **kwargs):
         if not permissions.user_can_delete_document(request.user, **self.kwargs) :
@@ -225,7 +227,7 @@ class DocumentAjaxAPI(CatalogueViewMixin, CategorySlugMixin, DocumentPkMixin, Aj
             docs = Document.objects.published().filter( filter ).select_related('category')
 
             search_options = [
-                {'text': category.name, 'children' : [format_select2(doc) for doc in group] }
+                {'text': category.name, 'children': [format_select2(doc) for doc in group] }
                 for category, group in groupby(docs, lambda d: d.category)
             ]
 
@@ -233,6 +235,6 @@ class DocumentAjaxAPI(CatalogueViewMixin, CategorySlugMixin, DocumentPkMixin, Aj
             recently_updated = Document.objects.published().order_by('-update_date')[:10]
             if recently_updated:
                 options = [format_select2(doc) for doc in recently_updated]
-                search_options = [{'text' : 'Recently Updated', 'children' :  options},]
+                search_options = [{'text': 'Recently Updated', 'children':  options},]
 
-        return self.render_to_json_response({'options':search_options})
+        return self.render_to_json_response({'options': search_options})
