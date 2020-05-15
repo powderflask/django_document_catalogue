@@ -1,6 +1,6 @@
 import sys, os
 
-from setuptools import setup, Command
+from setuptools import setup, Command, find_packages
 from setuptools.command.test import test
 
 class CleanCommand(Command):
@@ -29,7 +29,16 @@ test.run_tests = run_tests
 setup(
     name="django-document_catalogue",
     version="0.1",
-    packages=['document_catalogue', 'document_catalogue.tests'],
+    packages=find_packages(include=['document_catalogue', 'document_catalogue.*']),
+    python_requires='>=3',
+    install_requires = [
+        'Django>=2.2,<3.0',
+        'django-mptt>=0.10.0',
+        'django-private-storage>=2.2',
+        'django-constrainedfilefield>=3.2.0',
+        'python-magic>=0.4.15',
+        'setuptools-git',    # apparently needed to handle include_package_data from git repo?
+    ],
     license="MIT",
     include_package_data = True,
     description=("Simple, light-weight, stand-alone, hierarchical document library as a reusable django app."),
@@ -44,7 +53,6 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Framework :: Django',
     ],
