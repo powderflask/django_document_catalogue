@@ -11,10 +11,10 @@ Use Case:
 
 Features:
  * permanent URLs for direct access to document, category, and file download (even if filename changes)
- * opt-in private files (file downloads protected by login)
+ * opt-out private files (file downloads protected by login, on by default)
  * plugin permissions settings
  * upload / edit / delete documents via django admin, or..,
- * opt-in user-facing edit / upload / delete views and AJAX API
+ * opt-in user-facing edit / upload / delete views and AJAX API  (off by default)
  * plays nice with dropzone for drag-and-drop file uploads
 
 Dependencies:
@@ -46,7 +46,7 @@ Quick start
         ...
         'document_catalogue',
         'mptt',
-        'private_storage',    # optional: if settings.USE_PRIVATE_FILES
+        'private_storage',    # or opt-out: settings.DOCUMENT_CATALOGUE_USE_PRIVATE_FILES = False
     ]
     
 2. Configure settings
@@ -57,7 +57,7 @@ Quick start
 3. Include the document_catalogue URLconf (and optionally private_storage)::
 
     path('documents/', include('document_catalogue.urls')),
-    path('private-media/', include('private_storage.urls')),   # optional: if settings.USE_PRIVATE_FILES
+    path('private-media/', include('private_storage.urls')),   # or opt-out: settings.DOCUMENT_CATALOGUE_USE_PRIVATE_FILES = False
 
 
 4. Run `python manage.py migrate` to create the document_catalogue models.

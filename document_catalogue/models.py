@@ -76,7 +76,7 @@ class Document(models.Model):
 
     is_published = models.BooleanField(default=False)
 
-    if settings.USE_PRIVATE_FILES:
+    if settings.DOCUMENT_CATALOGUE_USE_PRIVATE_FILES:
         from private_storage.fields import PrivateFileField
         file = PrivateFileField(
             upload_to=document_upload_path_callback,

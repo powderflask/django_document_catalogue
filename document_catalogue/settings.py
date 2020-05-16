@@ -6,9 +6,9 @@ from django.conf import settings
 # To use django-private-storage as storage backend for supporting documentation files
 # If True, pip install django-private-storage and configure settings for private file storage as per docs
 # Intended to be set at start of project and not changed - schema and data migration required if this changes!
-USE_PRIVATE_FILES = getattr(settings, 'DOCUMENT_CATALOGUE_USE_PRIVATE_FILES', True)
+DOCUMENT_CATALOGUE_USE_PRIVATE_FILES = getattr(settings, 'DOCUMENT_CATALOGUE_USE_PRIVATE_FILES', True)
 
-# IMPORTANT: this only prevents access to the Catalogue views - the documents are served as media, anyone with thier URL can download them!
+# IMPORTANT: this only prevents access to the Catalogue views - if private-files is not used, anyone with thier URL can download them!
 DOCUMENT_CATALOGUE_LOGIN_REQUIRED = getattr(settings, 'DOCUMENT_CATALOGUE_LOGIN_REQUIRED', True)
 
 # Fine scale permissions (default permissions use DOCUMENT_CATALOGUE_LOGIN_REQUIRED, but that setting may be disabled by custom permissions)
@@ -21,7 +21,7 @@ DOCUMENT_CATALOGUE_PERMISSIONS = getattr(settings, 'DOCUMENT_CATALOGUE_PERMISSIO
 DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS = getattr(settings, 'DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS', False)
 
 # Root directory for file uploads to the document catalogue
-# If private storage is used, media_root MUST be a sub-directory of PRIVATE_STORAGE_ROOT
+# If private-files is used, media_root will be a sub-directory of PRIVATE_STORAGE_ROOT
 DOCUMENT_CATALOGUE_MEDIA_ROOT = getattr(settings, 'DOCUMENT_CATALOGUE_MEDIA_ROOT', 'documents/')
 
 # Upload file settings - constrain the file content_types and max. filesize for document file uploads.
