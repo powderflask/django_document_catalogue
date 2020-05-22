@@ -62,7 +62,7 @@ class Document(models.Model):
     """
     category = models.ForeignKey(DocumentCategory, on_delete=models.CASCADE)
 
-    sort_order = models.PositiveSmallIntegerField(default=1)
+    sort_order = models.PositiveSmallIntegerField(default=0)
 
     user = models.ForeignKey(django.conf.settings.AUTH_USER_MODEL, on_delete=models.SET(1))
 

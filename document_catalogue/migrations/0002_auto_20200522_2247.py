@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='document',
             name='sort_order',
-            field=models.PositiveSmallIntegerField(default=1),
+            field=models.PositiveSmallIntegerField(default=0),
         ),
     ]
