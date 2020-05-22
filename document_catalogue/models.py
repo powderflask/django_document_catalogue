@@ -112,3 +112,6 @@ class Document(models.Model):
     def get_filetype(self):
         name, extension = os.path.splitext(self.file.name)
         return extension[1:]
+
+    def filename(self):
+        return os.path.basename(self.file.name)
