@@ -15,4 +15,8 @@ class Migration(migrations.Migration):
             name='sort_order',
             field=models.PositiveSmallIntegerField(default=0),
         ),
+        migrations.AlterModelOptions(
+            name='document',
+            options={'ordering': ('sort_order',)},
+        ),
     ]

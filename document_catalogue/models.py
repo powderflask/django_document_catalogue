@@ -95,7 +95,7 @@ class Document(models.Model):
     objects = DocumentManager()
 
     class Meta:
-        ordering = ('category', 'sort_order', )
+        ordering = ('sort_order', )
 
     def __str__(self):
         return self.title
