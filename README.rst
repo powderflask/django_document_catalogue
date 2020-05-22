@@ -15,7 +15,8 @@ Features:
  * plugin permissions settings
  * upload / edit / delete documents via django admin, or..,
  * opt-in user-facing edit / upload / delete views and AJAX API  (off by default)
- * plays nice with dropzone for drag-and-drop file uploads
+ * plays nice with `dropzone <https://www.dropzonejs.com/>`_ for drag-and-drop file uploads
+ * plays nice with `django-admin-sortable2 <https://django-admin-sortable2.readthedocs.io>`_ for drag-and-drop document sorting
 
 Dependencies:
  * python 3

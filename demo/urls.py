@@ -18,3 +18,9 @@ urlpatterns = [
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
     urlpatterns += staticfiles_urlpatterns()
+
+    try:  # Optionally, load django-debug-toolbar if it's installed.
+        import debug_toolbar
+        urlpatterns += [path('__debug__/', include(debug_toolbar.urls)),]
+    except ModuleNotFoundError:
+        pass

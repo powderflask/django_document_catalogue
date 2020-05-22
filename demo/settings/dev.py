@@ -10,7 +10,14 @@ MANAGERS = ADMINS
 # the django dev server so we will need to serve the static files (see urls.py)
 DEBUG = True
 
+# Debug settings
+DEBUG_APPS = ['debug_toolbar', ]
+DEBUG_MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
 INTERNAL_IPS = ['127.0.0.1']
+
+if DEBUG:
+    INSTALLED_APPS += DEBUG_APPS
+    MIDDLEWARE += DEBUG_MIDDLEWARE
 
 DATABASES = {
     'default': {

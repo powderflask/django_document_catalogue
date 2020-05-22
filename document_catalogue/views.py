@@ -7,7 +7,8 @@ from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponseForbidden
 from django.template.loader import get_template
-from django.db.models import Q
+from django.db.models import Q, Prefetch
+from django.db.models.functions import Lower
 from django.views import generic
 
 from .models import Document, DocumentCategory
@@ -66,12 +67,28 @@ class DocumentPkMixin:
 
 
 class DocumentListMixin(CatalogueViewMixin, CategorySlugViewMixin):
-    """Mixin for document list functions."""
+    """Mixin for views that list documents."""
+    @property
+    def ordering(self):
+        """ Return a Q object representing the ordering to use for document queryset """
+        ORDERING_EXPRESSION = {
+            'date' : '-update_date',
+            'title': Lower('title').asc(),
+        }
+        ordering = self.request.GET.get('ordering', None)
+        return ORDERING_EXPRESSION[ordering] if ordering and ordering in ORDERING_EXPRESSION else None
+
+
     def get_queryset(self):
         qs = Document.objects.published().select_related('category', )
         if self.category_slug:
-            qs.filter(category__slug=self.category_slug)
+            qs = qs.filter(category__slug=self.category_slug)
+        if self.ordering:
+            qs = qs.order_by('category', self.ordering)
         return qs
+
+    def get_documents_queryset(self):
+        return self.get_queryset()
 
 
 class DocumentCatalogueListView(DocumentListMixin, generic.ListView):
@@ -90,7 +107,7 @@ class DocumentCatalogueListView(DocumentListMixin, generic.ListView):
 
 
 class CategoryListViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
-    """ Mixin for views that navigate categories or display a list of cateogries """
+    """ Mixin for views that navigate categories or display a list of categories """
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx.update({
@@ -104,7 +121,13 @@ class CategoryListViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
 class DocumentCategoryListView(CategoryListViewMixin, DocumentListMixin, generic.ListView):
     """ List all documents in a given category """
     template_name = 'document_catalogue/documents_by_category_list.html'
-
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        documents = Prefetch('document_set', queryset=self.get_documents_queryset())
+        ctx.update({
+            'categories': self.category.get_descendants(include_self=True).prefetch_related(documents)
+        })
+        return ctx
 
 class DocumentViewMixin(generic.base.ContextMixin, DocumentPkMixin):
     """ Mixins for views that display a document """
