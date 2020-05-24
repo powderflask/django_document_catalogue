@@ -25,6 +25,9 @@ Dependencies:
  * `django-mptt <https://django-mptt.readthedocs.io/en/latest/index.html>`_
 
 Opt-in:
+ * `django-admin-sortable2 <https://django-admin-sortable2.readthedocs.io>`_
+
+Configurable file handling:
  * `django-private-storage <https://pypi.org/project/django-private-storage/>`_
 
  or
