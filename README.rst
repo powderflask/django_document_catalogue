@@ -13,6 +13,7 @@ Features:
  * permanent URLs for direct access to document, category, and file download (even if filename changes)
  * opt-out private files (file downloads protected by login, on by default)
  * plugin permissions settings
+ * plugin architecture to customize document list views
  * upload / edit / delete documents via django admin, or..,
  * opt-in user-facing edit / upload / delete views and AJAX API  (off by default)
  * plays nice with `dropzone <https://www.dropzonejs.com/>`_ for drag-and-drop file uploads

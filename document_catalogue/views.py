@@ -14,7 +14,7 @@ from django.views import generic
 from .models import Document, DocumentCategory
 from .views_generic import AjaxOnlyViewMixin
 from .decorators import permission_required
-from . import settings, forms
+from . import settings, forms, plugins
 
 permissions = import_module(settings.DOCUMENT_CATALOGUE_PERMISSIONS)
 
@@ -66,47 +66,28 @@ class DocumentPkMixin:
             raise Http404
 
 
-class DocumentListMixin(CatalogueViewMixin, CategorySlugViewMixin):
-    """Mixin for views that list documents."""
-    @property
-    def ordering(self):
-        """ Return a Q object representing the ordering to use for document queryset """
-        ORDERING_EXPRESSION = {
-            'date' : '-update_date',
-            'title': Lower('title').asc(),
-        }
-        ordering = self.request.GET.get('ordering', None)
-        return ORDERING_EXPRESSION[ordering] if ordering and ordering in ORDERING_EXPRESSION else None
-
-
-    def get_queryset(self):
-        qs = Document.objects.published().select_related('category', )
-        if self.category_slug:
-            qs = qs.filter(category__slug=self.category_slug)
-        if self.ordering:
-            qs = qs.order_by('category', self.ordering)
-        return qs
-
-    def get_documents_queryset(self):
-        return self.get_queryset()
-
-
-class DocumentCatalogueListView(DocumentListMixin, generic.ListView):
+class DocumentCatalogueListView(CatalogueViewMixin, generic.ListView):
     """ List all categories in the Catalogue """
     template_name = 'document_catalogue/categories_list.html'
+
+    queryset = DocumentCategory.objects.add_related_count(DocumentCategory.objects.all(), Document,
+                                                         'category', 'document_counts',cumulative=True)
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx.update({
-            'categories': DocumentCategory.objects.add_related_count(
-                                DocumentCategory.objects.all(), Document,
-                                'category', 'document_counts',cumulative=True
-            ),
+            'categories': self.queryset.all(),  # TODO: eliminate this by using object_list in template
         })
         return ctx
 
 
-class CategoryListViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
+class CatgetoryContextViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
+    """ Mixing for views that supply context about a category """
+    # here to serve as a base class so consitent MRO can be created
+    pass
+
+
+class CategoryListViewMixin(CatgetoryContextViewMixin):
     """ Mixin for views that navigate categories or display a list of categories """
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -118,16 +99,44 @@ class CategoryListViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
         return ctx
 
 
-class DocumentCategoryListView(CategoryListViewMixin, DocumentListMixin, generic.ListView):
+class BaseDocumentListView(plugins.ViewPluginManager,
+                           CatalogueViewMixin, CatgetoryContextViewMixin, generic.ListView):
+    """
+        Base class / mixin for views that list documents.
+        Plugin architecture used to inject custom view logic.  See plugins.
+    """
+    queryset = Document.published.all()
+    def dispatch(self, request, *args, **kwargs):
+        """ Apply any plugins """
+        self.apply_plugins(lambda plugin: plugin.apply(request))
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_document_queryset(self):
+        qs = super().get_queryset()
+        if self.category_slug:
+            qs = qs.filter(category__slug=self.category_slug)
+        return self.plugins_extend_qs(self.request, qs)
+
+    def get_queryset(self):
+        return self.get_document_queryset()
+
+    def get_context_data(self, **kwargs):
+        plugin_ctx = self.plugins_get_context(self.request)
+        return super().get_context_data(**plugin_ctx)
+
+
+@plugins.RegisterPlugins(plugins.SessionOrderedViewPlugin())
+class DocumentCategoryListView(CategoryListViewMixin, BaseDocumentListView):
     """ List all documents in a given category """
     template_name = 'document_catalogue/documents_by_category_list.html'
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        documents = Prefetch('document_set', queryset=self.get_documents_queryset())
+        documents = Prefetch('document_set', queryset=self.get_document_queryset())
         ctx.update({
             'categories': self.category.get_descendants(include_self=True).prefetch_related(documents)
         })
         return ctx
+
 
 class DocumentViewMixin(generic.base.ContextMixin, DocumentPkMixin):
     """ Mixins for views that display a document """
