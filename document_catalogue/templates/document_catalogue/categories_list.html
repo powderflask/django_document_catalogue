@@ -3,6 +3,6 @@
 
 {% block dc-content %}
 
-    {% include 'document_catalogue/include/categories.html' with show_documents=False %}
+    {% include 'document_catalogue/include/categories.html' with categories=object_list show_documents=False %}
 
 {% endblock %}

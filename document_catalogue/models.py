@@ -14,9 +14,10 @@ class DocumentCategory(mptt.models.MPTTModel):
     slug = models.SlugField(unique=True)
     # sort_order = models.SmallIntegerField(default=1)
     description = models.TextField(blank=True)
-    parent = mptt.models.TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    parent = mptt.models.TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True,
+                                        related_name='children')
 
-    objects = mptt.models.TreeManager()  # this is the default manager, but pydev was being irritating - just to shut-up pydev - can be removed without any other effect
+    objects = mptt.models.TreeManager()
 
     class MPTTMeta:
         order_insertion_by = ['slug']
@@ -40,14 +41,28 @@ class DocumentCategory(mptt.models.MPTTModel):
         return self.document_set.count()
 
 
-class DocumentManager(models.Manager):
-    """Custom query manager for the Document model."""
+class DocumentQueryset(models.QuerySet):
+    """ Custom query set for Document model """
     def published(self):
-        """ Returns queryset of published documents """
-        return self.get_queryset().filter(is_published=True)
+        return self.filter(is_published=True)
 
     def in_category(self, category_slug):
-        return self.get_queryset().filter(category__slug=category_slug)
+        return self.filter(category__slug=category_slug)
+
+
+BaseDocumentManager = models.Manager.from_queryset(DocumentQueryset)
+
+
+class DocumentManager(BaseDocumentManager):
+    """ Manager for Document model with all methods from DocumentQuerySet. """
+    def get_queryset(self):
+        return super().get_queryset().select_related('category')
+
+
+class PublishedDocumentManager(DocumentManager):
+    """ Published documents only """
+    def get_queryset(self):
+        return super().get_queryset().published()
 
 
 def document_upload_path_callback(instance, filename):
@@ -58,7 +73,7 @@ def document_upload_path_callback(instance, filename):
 
 class Document(models.Model):
     """
-    A document consists of a title and description and a number of filer-files.
+        A file and the meta-data describing that file in the catalogue.
     """
     category = models.ForeignKey(DocumentCategory, on_delete=models.CASCADE)
 
@@ -82,17 +97,19 @@ class Document(models.Model):
             upload_to=document_upload_path_callback,
             content_types=settings.DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST,
             max_file_size=settings.DOCUMENT_CATALOGUE_MAX_FILESIZE \
-                                                            if settings.DOCUMENT_CATALOGUE_MAX_FILESIZE else None
+                if settings.DOCUMENT_CATALOGUE_MAX_FILESIZE else None
         )
     else:
         from constrainedfilefield.fields import ConstrainedFileField
-        file = ConstrainedFileField(max_length=200,
+        file = ConstrainedFileField(
+            max_length=200,
             upload_to=document_upload_path_callback,
             content_types=settings.DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST,
             max_upload_size=settings.DOCUMENT_CATALOGUE_MAX_FILESIZE * 1024 * 1024 \
-                                                            if settings.DOCUMENT_CATALOGUE_MAX_FILESIZE else 0
+                if settings.DOCUMENT_CATALOGUE_MAX_FILESIZE else 0
         )
     objects = DocumentManager()
+    published = PublishedDocumentManager()
 
     class Meta:
         ordering = ('sort_order', )

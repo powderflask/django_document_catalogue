@@ -8,7 +8,6 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponseForbidden
 from django.template.loader import get_template
 from django.db.models import Q, Prefetch
-from django.db.models.functions import Lower
 from django.views import generic
 
 from .models import Document, DocumentCategory
@@ -61,7 +60,7 @@ class DocumentPkMixin:
     @cached_property
     def document(self):
         try:
-            return Document.objects.published().select_related('category').get(pk=self.document_pk)
+            return Document.published.get(pk=self.document_pk)
         except Document.DoesNotExist:
             raise Http404
 
@@ -72,13 +71,6 @@ class DocumentCatalogueListView(CatalogueViewMixin, generic.ListView):
 
     queryset = DocumentCategory.objects.add_related_count(DocumentCategory.objects.all(), Document,
                                                          'category', 'document_counts',cumulative=True)
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx.update({
-            'categories': self.queryset.all(),  # TODO: eliminate this by using object_list in template
-        })
-        return ctx
 
 
 class CatgetoryContextViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
@@ -253,7 +245,7 @@ class DocumentAjaxAPI(CatalogueViewMixin, CategorySlugViewMixin, DocumentPkMixin
         if search_term:  # retrieve search results, if a search_term is given
             filter = Q(title__icontains=search_term) | \
                      Q(category__name__icontains=search_term)
-            docs = Document.objects.published().filter( filter ).select_related('category')
+            docs = Document.published.filter( filter )
 
             search_options = [
                 {'text': category.name, 'children': [format_select2(doc) for doc in group] }
@@ -261,7 +253,7 @@ class DocumentAjaxAPI(CatalogueViewMixin, CategorySlugViewMixin, DocumentPkMixin
             ]
 
         else:  # Recently updated documents.
-            recently_updated = Document.objects.published().order_by('-update_date')[:10]
+            recently_updated = Document.published.order_by('-update_date')[:10]
             if recently_updated:
                 options = [format_select2(doc) for doc in recently_updated]
                 search_options = [{'text': 'Recently Updated', 'children':  options},]
