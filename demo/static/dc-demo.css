@@ -7,6 +7,10 @@
 .dc-document-actions {
     width: 85px;
 }
+.dc-document-ordering.dropdown button.dropdown-toggle {
+    background-color: transparent;
+    border-color: transparent;
+}
 
 .large {
     font-size: 1.5em;

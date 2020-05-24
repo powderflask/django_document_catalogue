@@ -13,11 +13,11 @@ Features:
  * permanent URLs for direct access to document, category, and file download (even if filename changes)
  * opt-out private files (file downloads protected by login, on by default)
  * plugin permissions settings
- * plugin architecture to customize document list views
- * upload / edit / delete documents via django admin, or..,
+ * plugin document list view customization (list ordering menu on by default)
+ * upload / edit / delete documents via django admin, and/or..,
  * opt-in user-facing edit / upload / delete views and AJAX API  (off by default)
  * plays nice with `dropzone <https://www.dropzonejs.com/>`_ for drag-and-drop file uploads
- * plays nice with `django-admin-sortable2 <https://django-admin-sortable2.readthedocs.io>`_ for drag-and-drop document sorting
+ * plays nice with `django-admin-sortable2 <https://django-admin-sortable2.readthedocs.io>`_ for drag-and-drop document ordering in admin
 
 Dependencies:
  * python 3
@@ -32,7 +32,7 @@ Opt-in:
  * `django-constrainedfilefield <https://github.com/mbourqui/django-constrainedfilefield>`_
  * `python-magic <https://github.com/ahupp/python-magic>`_ (if you want to validate file content_types)
 
-< Detailed documentation is in the "docs" directory. > (TODO)
+< Detailed documentation > (TODO)
 
 
 Quick start
@@ -51,16 +51,15 @@ Quick start
         'private_storage',    # or opt-out: settings.DOCUMENT_CATALOGUE_USE_PRIVATE_FILES = False
     ]
     
-2. Configure settings
+2. Configure settings::
 
-  * private storage settings (if using)
   * override document catalogue default settings (if required)
+  * private storage settings (if using)
 
 3. Include the document_catalogue URLconf (and optionally private_storage)::
 
     path('documents/', include('document_catalogue.urls')),
     path('private-media/', include('private_storage.urls')),   # or opt-out: settings.DOCUMENT_CATALOGUE_USE_PRIVATE_FILES = False
-
 
 4. Run `python manage.py migrate` to create the document_catalogue models.
 
@@ -77,7 +76,7 @@ See the demo project for some ideas on how to configure and use the Document Cat
 
  * add document_catalogue/base.html to your templates to override the base template.
    Document Catalogue views are rendered within `{% block dc-content %}`
- * add `scripts`: jquery, dropzone, and `static/document_catalogue/document_catalogue.js` to base template
+ * add `scripts`: jquery, bootstrap, dropzone, and `static/document_catalogue/document_catalogue.js` to base template
  * add a `<div id='DocumentCatalogueManager' ...>` to base template to enable dropzone uploads and provide default options
 
 

@@ -4,6 +4,9 @@
 
 {% block dc-content %}
 
+    <div class="pull-right">
+        {% include 'document_catalogue/include/doc_ordering.html' %}
+    </div>
     {% include 'document_catalogue/include/breadcrumb.html' %}
 
     {% include 'document_catalogue/include/categories.html' with show_documents=True %}

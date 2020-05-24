@@ -179,6 +179,7 @@ $(document).ready(function() {
             }
         },
     });
+    // Load-on-change: select widgets that act as drop-down menus
     $("select.load-on-change").change(function() {
         //alert('selected: ' + $(this).val());
         window.location.href = $(this).val();

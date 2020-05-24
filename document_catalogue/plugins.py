@@ -106,7 +106,7 @@ class OrderedViewPlugin(AbstractViewPlugin):
         'title': Lower('title').asc(),
     }
 
-    def __init__(self, query_param='ordering'):
+    def __init__(self, query_param='dc_ordering'):
         """ Name of the query parameter used to specify ordering """
         super().__init__()
         self.query_param = query_param

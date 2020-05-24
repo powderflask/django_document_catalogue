@@ -1,0 +1,19 @@
+{# Menu for selecting document ordering -- assumes ordering key is: dc_ordering #}
+{% if dc_ordering_choices %}
+    <div class="dc-document-ordering dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dc-ordering-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Ordered by {{ dc_ordering|title }}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dc-ordering-menu">
+          <li class="dropdown-header">Document Ordering</li>
+          {% for option,label in dc_ordering_choices %}
+              <li{% if option == dc_ordering %} class="active"{% endif %}>
+                  <a href="?dc_ordering={{option}}">
+                    {{ label }}
+                  </a>
+              </li>
+          {% endfor %}
+      </ul>
+    </div>
+{% endif %}
