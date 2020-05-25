@@ -14,7 +14,7 @@ import os
 import sys
 import django
 sys.path.insert(0, os.path.abspath('..'))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'demo.settings.defaults'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'docs.settings'
 django.setup()
 
 # -- Project information -----------------------------------------------------
