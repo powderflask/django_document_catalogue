@@ -2,10 +2,14 @@
 Django settings for testing document_catalogue.
 """
 
+from pathlib import Path
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = '/tmp/document_catalogue_tests/'
+
+# Ensure the base path exists
+Path(BASE_DIR).mkdir(parents=True, exist_ok=True)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'foobar'

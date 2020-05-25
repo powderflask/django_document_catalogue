@@ -20,8 +20,8 @@ Features:
  * plays nice with `django-admin-sortable2 <https://django-admin-sortable2.readthedocs.io>`_ for drag-and-drop document ordering in admin
 
 Dependencies:
- * python 3
- * django 2
+ * python 3.5+
+ * django 2+
  * `django-mptt <https://django-mptt.readthedocs.io/en/latest/index.html>`_
 
 Opt-in:
