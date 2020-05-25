@@ -35,6 +35,7 @@ setup(
         'Django>=2.2,<3.0',
         'django-mptt>=0.10.0',
         'django-private-storage>=2.2',
+        'django-admin-sortable2',
         'django-constrainedfilefield>=3.2.0',
         'python-magic>=0.4.15',
         'setuptools-git',    # apparently needed to handle include_package_data from git repo?
