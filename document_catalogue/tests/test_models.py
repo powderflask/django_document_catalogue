@@ -35,7 +35,7 @@ class CategoryTests(TestCase):
     def test_document_count(self):
         categories = models.DocumentCategory.objects.all()
         for cat in categories:
-            self.assertEqual(cat.document_count(), 0, 'Category with no documents returns non-zero document_count.')
+            self.assertEqual(cat.get_document_count(), 0, 'Category with no documents returns non-zero get_document_count.')
 
 
 class DocumentTests(TestCase):

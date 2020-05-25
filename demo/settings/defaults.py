@@ -132,4 +132,3 @@ PRIVATE_STORAGE_AUTH_FUNCTION = 'private_storage.permissions.allow_authenticated
 DOCUMENT_CATALOGUE_LOGIN_REQUIRED = True
 DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS = True
 DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST = ('text/plain', 'application/pdf', 'image/png', 'image/jpg', 'image/jpeg')
-

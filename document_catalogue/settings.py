@@ -30,3 +30,9 @@ DOCUMENT_CATALOGUE_MEDIA_ROOT = getattr(settings, 'DOCUMENT_CATALOGUE_MEDIA_ROOT
 DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST = getattr(settings,'DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST', None)
 # max. size in bytes, None for no limit
 DOCUMENT_CATALOGUE_MAX_FILESIZE = getattr(settings, 'DOCUMENT_CATALOGUE_MAX_FILESIZE', 10 * 1024 * 1024)
+
+# Plugin Classes used to inject behaviours into standard document list views
+# Define plugins by extending the ABC: document_catalogue.plugins.AbstractViewPlugin
+# Inject them by customizing this setting
+DOCUMENT_CATALOGUE_LIST_VIEW_PLUGINS = getattr(settings, 'DOCUMENT_CATALOGUE_LIST_VIEW_PLUGINS',
+                                               ('document_catalogue.plugins.SessionOrderedViewPlugin', ))

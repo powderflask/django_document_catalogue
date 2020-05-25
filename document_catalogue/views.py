@@ -2,12 +2,13 @@ from importlib import import_module
 from functools import partial
 from itertools import groupby
 
+from django.utils.module_loading import import_string
 from django.utils.functional import cached_property
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponseForbidden
 from django.template.loader import get_template
-from django.db.models import Q, Prefetch
+from django.db.models import Q, Prefetch, Count
 from django.views import generic
 
 from .models import Document, DocumentCategory
@@ -15,7 +16,11 @@ from .views_generic import AjaxOnlyViewMixin
 from .decorators import permission_required
 from . import settings, forms, plugins
 
+# import Plugin Permissions module
 permissions = import_module(settings.DOCUMENT_CATALOGUE_PERMISSIONS)
+
+# import Plugin classes
+list_view_plugin_classes = tuple(import_string(plugin) for plugin in settings.DOCUMENT_CATALOGUE_LIST_VIEW_PLUGINS)
 
 
 def get_permissions_context(view):
@@ -70,7 +75,7 @@ class DocumentCatalogueListView(CatalogueViewMixin, generic.ListView):
     template_name = 'document_catalogue/categories_list.html'
 
     queryset = DocumentCategory.objects.add_related_count(DocumentCategory.objects.all(), Document,
-                                                         'category', 'document_counts',cumulative=True)
+                                                         'category', 'document_count',cumulative=True)
 
 
 class CatgetoryContextViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
@@ -85,7 +90,7 @@ class CategoryListViewMixin(CatgetoryContextViewMixin):
         ctx = super().get_context_data(**kwargs)
         ctx.update({
             'category': self.category,
-            'categories': self.category.get_descendants(include_self=True),
+            'categories': self.category.get_descendants(include_self=True).annotate(document_count=Count('document')),
             'breadcrumb': self.category.get_ancestors()
         })
         return ctx
@@ -117,7 +122,7 @@ class BaseDocumentListView(plugins.ViewPluginManager,
         return super().get_context_data(**plugin_ctx)
 
 
-@plugins.RegisterPlugins(plugins.SessionOrderedViewPlugin())
+@plugins.RegisterPlugins(*(plugin() for plugin in list_view_plugin_classes))
 class DocumentCategoryListView(CategoryListViewMixin, BaseDocumentListView):
     """ List all documents in a given category """
     template_name = 'document_catalogue/documents_by_category_list.html'
@@ -125,7 +130,9 @@ class DocumentCategoryListView(CategoryListViewMixin, BaseDocumentListView):
         ctx = super().get_context_data(**kwargs)
         documents = Prefetch('document_set', queryset=self.get_document_queryset())
         ctx.update({
-            'categories': self.category.get_descendants(include_self=True).prefetch_related(documents)
+            'categories': self.category.get_descendants(include_self=True)\
+                                       .annotate(document_count=Count('document'))\
+                                       .prefetch_related(documents)
         })
         return ctx
 

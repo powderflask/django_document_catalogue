@@ -36,7 +36,7 @@ class DocumentCategory(mptt.models.MPTTModel):
         """ Return true if this DocumentCategory has dependent objects lower in the hierarchy """
         return self.get_descendant_count() > 0
 
-    def document_count(self):
+    def get_document_count(self):
         """ Return the total number of documents uploaded for this category """
         return self.document_set.count()
 

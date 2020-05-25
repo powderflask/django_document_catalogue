@@ -80,11 +80,11 @@ class ViewPluginManager(PluginManager):
 class AbstractViewPlugin(metaclass=ABCMeta):
     """ Defines the API for a plugin that injects behaviour into a View class """
     def apply(self, request):
-        """ Apply the plugin to the given request """
+        """ Apply the plugin to the given request just prior to dispatching it """
         pass
 
     def extend_qs(self, request, qs):
-        """ Extend, modify, or constrain the given queryset and return it """
+        """ Extend, modify, or constrain the base document queryset and return it """
         return qs
 
     def get_context(self, request):

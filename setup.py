@@ -28,7 +28,7 @@ test.run_tests = run_tests
 
 setup(
     name="django-document_catalogue",
-    version="0.1",
+    version="0.1.0",
     packages=find_packages(include=['document_catalogue', 'document_catalogue.*']),
     python_requires='>=3',
     install_requires = [
