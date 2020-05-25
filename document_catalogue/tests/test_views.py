@@ -12,7 +12,7 @@ class BaseTestWithUsers(TestCase):
     """
     def setUp(self):
         super().setUp()
-        self.categories=base.create_document_categories()
+        self.categories = base.create_document_categories()
         self.privilegedUser = base.create_user(username='privileged',
                                                permissions=('Can add document', 'Can change document', 'Can delete document'))
         self.restrictedUser = base.create_user(username='restricted')
