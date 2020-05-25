@@ -60,20 +60,20 @@ def generate_file(filename, file_type='txt'):
             myfile.write(content)
             return myfile
 
-    if file_type is 'txt':
+    if file_type == 'txt':
         return write_text_file(filename, b'Hello World')
 
-    if file_type is 'html':
+    if file_type == 'html':
         return write_text_file(filename, b'<!DOCTYPE html><html><head></head><body><p>Hello World</p></body></html>')
 
     raise Exception("Don't know how to generate file of type %s" % file_type)
 
 
 def generate_simple_uploaded_file(filename, file_type='txt'):
-    if file_type is 'txt':
+    if file_type == 'txt':
         return SimpleUploadedFile(filename, b'Hello World')
 
-    if file_type is 'html':
+    if file_type == 'html':
         return SimpleUploadedFile(filename, b'<!DOCTYPE html><html><head></head><body><p>Hello World</p></body></html>')
 
     raise Exception("Don't know how to generate file of type %s" % file_type)

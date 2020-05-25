@@ -90,8 +90,8 @@ class CategoryListViewMixin(CatgetoryContextViewMixin):
         ctx = super().get_context_data(**kwargs)
         ctx.update({
             'category': self.category,
-            'categories': self.category.get_descendants(include_self=True).annotate(document_count=Count('document')),
-            'breadcrumb': self.category.get_ancestors()
+            'descendants': self.category.get_descendants(include_self=True).annotate(document_count=Count('document')),
+            'ancestors': self.category.get_ancestors()
         })
         return ctx
 
@@ -126,11 +126,12 @@ class BaseDocumentListView(plugins.ViewPluginManager,
 class DocumentCategoryListView(CategoryListViewMixin, BaseDocumentListView):
     """ List all documents in a given category """
     template_name = 'document_catalogue/documents_by_category_list.html'
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         documents = Prefetch('document_set', queryset=self.get_document_queryset())
         ctx.update({
-            'categories': self.category.get_descendants(include_self=True)\
+            'descendants': self.category.get_descendants(include_self=True)\
                                        .annotate(document_count=Count('document'))\
                                        .prefetch_related(documents)
         })
@@ -144,7 +145,7 @@ class DocumentViewMixin(generic.base.ContextMixin, DocumentPkMixin):
         ctx.update({
             'document' : self.document,
             'category' : self.document.category,
-            'breadcrumb':self.document.category.get_ancestors()
+            'ancestors':self.document.category.get_ancestors()
         })
         return ctx
 

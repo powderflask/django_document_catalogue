@@ -4,7 +4,7 @@ from django.conf import settings as django_settings
 from django.test import TestCase
 from django.core.files.uploadedfile import UploadedFile
 from django import forms
-from document_catalogue import models
+from document_catalogue import models, settings
 from . import base
 
 
@@ -96,7 +96,7 @@ class ConstrainedfileFieldTests(TestCase):
         document = base.create_document()
         file_field = document.file.field
         # fudge the file size to exceed max.
-        file_size = django_settings.DOCUMENT_CATALOGUE_MAX_FILESIZE + 1
+        file_size = settings.DOCUMENT_CATALOGUE_MAX_FILESIZE + 1
         document.file.file = \
             UploadedFile(file=document.file.file, name=document.title, content_type='txt', size=file_size)
         with self.assertRaises(forms.ValidationError):
