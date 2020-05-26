@@ -24,10 +24,29 @@ def run_tests(*args):
 
 test.run_tests = run_tests
 
-VERSION = "0.1.3"
+NAME = "django-document-catalogue"
+
+# get version without importing
+with open("document_catalogue/__init__.py", "rb") as f:
+    VERSION = str(re.search('__version__ = "(.+?)"', f.read().decode()).group(1))
+
+with open("docs/.readthedocs.yml", "rb") as f:
+    DOCS_VERSION = str(re.search('version: (.+)', f.read().decode()).group(1))
+
+
+class VersionCommand(Command):
+    description = 'print version numbers, from various places they exist in project'
+    user_options = []
+    def initialize_options(self):
+        pass
+    def finalize_options(self):
+        pass
+    def run(self):
+        print('Package {name} Version: {version}'.format(name=NAME, version=VERSION))
+        print('Docs version: {version}'.format(version=DOCS_VERSION))
 
 setup(
-    name="django-document-catalogue",
+    name=NAME,
     version=VERSION,
     packages=find_packages(include=['document_catalogue', 'document_catalogue.*']),
     python_requires='>=3.5, <4',
@@ -50,7 +69,7 @@ setup(
     maintainer="powderflask",
     maintainer_email="powderflask@gmail.com",
     url="https://github.com/powderflask/django_document_catalogue",
-    download_url="https://github.com/powderflask/django_document_catalogue/archive/v_{}.tar.gz".format(VERSION),
+    download_url="https://github.com/powderflask/django_document_catalogue/archive/v{}.tar.gz".format(VERSION),
     project_urls={
         'ReadTheDocs'  : 'https://django-document-catalogue.readthedocs.io',
     },
@@ -65,6 +84,7 @@ setup(
     ],
     cmdclass={
         'clean' : CleanCommand,
+        'version': VersionCommand,
     },
     test_suite="dummy",
 )

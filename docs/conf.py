@@ -24,7 +24,8 @@ copyright = '2020, powderflask'
 author = 'powderflask'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+import document_catalogue
+release = document_catalogue.__version__
 
 master_doc = 'index'
 
