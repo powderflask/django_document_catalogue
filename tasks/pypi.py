@@ -1,28 +1,5 @@
-from invoke import task, Collection
-
-def docs_make(c, command):
-    c.run('cd docs; make {}'.format(command))
-
-@task
-def docs_clean(c):
-    """ Clean docs build """
-    docs_make(c, 'clean')
-
-@task(docs_clean)
-def docs_build(c):
-    """ Clean and build Sphinx docs """
-    docs_make(c, 'html')
-
-@task(docs_build)
-def docs_release(c):
-    """ Push docs to github, triggering webhook to build readthedocs """
-    c.run('cd docs; git push')
-
-docs = Collection('docs')
-docs.add_task(docs_build, 'build')
-docs.add_task(docs_clean, 'clean')
-docs.add_task(docs_release, 'release')
-
+from invoke import task
+from . import docs as docs_task
 
 def setup(c, command):
     c.run('python setup.py {}'.format(command))
@@ -32,14 +9,14 @@ def clean(c, docs=True):
     """ Clean setup / build directories """
     setup(c, 'clean')
     if docs:
-        docs_clean(c)
+        docs_task.clean(c)
 
 @task(clean)
 def build(c, docs=False):
     """ Clean and build a new distribution """
     setup(c, "sdist")
     if docs:
-        docs_build(c)
+        docs_task.build(c)
 
 @task
 def version(c):
