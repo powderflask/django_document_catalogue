@@ -1,4 +1,4 @@
-import sys, os
+import sys, os, re
 
 from setuptools import setup, Command, find_packages
 from setuptools.command.test import test
@@ -22,15 +22,15 @@ def run_tests(*args):
     else:
         sys.exit(0)
 
-
 test.run_tests = run_tests
 
+VERSION = "0.1.1"
 
 setup(
-    name="django-document_catalogue",
-    version="0.1.0",
+    name="django-document-catalogue",
+    version=VERSION,
     packages=find_packages(include=['document_catalogue', 'document_catalogue.*']),
-    python_requires='>=3',
+    python_requires='>=3.5, <4',
     install_requires = [
         'Django>=2.2,<3.0',
         'django-mptt>=0.10.0',
@@ -43,11 +43,17 @@ setup(
     license="MIT",
     include_package_data = True,
     description=("Simple, light-weight, stand-alone, hierarchical document library as a reusable django app."),
+    long_description=open("README.rst").read(),
+    long_description_content_type="text/x-rst",
     author="powderflask",
     author_email="powderflask@gmail.com",
     maintainer="powderflask",
     maintainer_email="powderflask@gmail.com",
-    url="http://pypi.python.org/pypi/django-document_catalogue/",
+    url="https://github.com/powderflask/django_document_catalogue",
+    download_url="https://github.com/powderflask/django_document_catalogue/archive/v_{}.tar.gz".format(VERSION),
+    project_urls={
+        'ReadTheDocs'  : 'https://django-document-catalogue.readthedocs.io',
+    },
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
