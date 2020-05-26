@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'document_catalogue.apps.DocumentCatalogueConfig',
+    'document_catalogue.apps.PrivateCatalogueConfig',
     'mptt',
     'private_storage',
 ]

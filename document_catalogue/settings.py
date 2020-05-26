@@ -1,15 +1,17 @@
 """Default settings for the document_catalogue app."""
 
 from django.conf import settings
+from django.apps import apps
 
+appConfig = apps.get_app_config('document_catalogue')
 
 # To use django-private-storage as storage backend for supporting documentation files
 # If True, pip install django-private-storage and configure settings for private file storage as per docs
 # Intended to be set at start of project and not changed - schema and data migration required if this changes!
-DOCUMENT_CATALOGUE_USE_PRIVATE_FILES = getattr(settings, 'DOCUMENT_CATALOGUE_USE_PRIVATE_FILES', True)
+DOCUMENT_CATALOGUE_USE_PRIVATE_FILES = appConfig.USE_PRIVATE_FILES
 
-# IMPORTANT: this only prevents access to the Catalogue views - if private-files is not used, anyone with thier URL can download them!
-DOCUMENT_CATALOGUE_LOGIN_REQUIRED = getattr(settings, 'DOCUMENT_CATALOGUE_LOGIN_REQUIRED', True)
+# IMPORTANT: this only restricts access to the Catalogue views - if private-files is not used, anyone with thier URL can download them!
+DOCUMENT_CATALOGUE_LOGIN_REQUIRED = getattr(settings, 'DOCUMENT_CATALOGUE_LOGIN_REQUIRED', appConfig.LOGIN_REQUIRED_DEFAULT)
 
 # Fine scale permissions (default permissions use DOCUMENT_CATALOGUE_LOGIN_REQUIRED, but that setting may be disabled by custom permissions)
 # Value is a dotted path to a permissions module or object with the required permissions functions - see permissions.py

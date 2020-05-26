@@ -6,9 +6,7 @@ Swappable Behaviours
 Plugin Permissions
 ^^^^^^^^^^^^^^^^^^
 
-    PRIVATE_STORAGE_AUTH_FUNCTION = 'private_storage.permissions.allow_superuser'  # default
-
-Access Control / Permissions are determined by a Python module, that can be swapped out using a setting::
+Catalogue Access Control / Permissions are determined by a Python module, that can be swapped out using a setting::
 
     DOCUMENT_CATALOGUE_PERMISSIONS = 'document_catalogue.permissions'   # default
 
@@ -26,6 +24,15 @@ To simply restrict access to logged in users only, use setting::
     DOCUMENT_CATALOGUE_LOGIN_REQUIRED = True    # default
 
 See :ref:`Access Control Settings <settings-access-control>`
+
+PrivateCatalogueConfig
+----------------------
+Document download permissions are determined by a Python function::
+
+    PRIVATE_STORAGE_AUTH_FUNCTION = 'private_storage.permissions.allow_superuser'
+
+* See `private-storage Access Rules <https://github.com/edoburu/django-private-storage#defining-access-rules>`_
+
 
 .. _doc-list-plugins:
 

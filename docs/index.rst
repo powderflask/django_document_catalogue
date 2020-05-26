@@ -23,10 +23,6 @@ Features
  * plays nice with `dropzone <https://www.dropzonejs.com/>`_ for drag-and-drop file uploads
  * plays nice with `django-admin-sortable2 <https://django-admin-sortable2.readthedocs.io>`_ for drag-and-drop document ordering in admin
 
-
-Guide
-^^^^^
-
 .. toctree::
    :maxdepth: 2
    :caption: Getting started
