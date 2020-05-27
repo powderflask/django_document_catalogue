@@ -3,7 +3,7 @@
 Settings
 ========
 
-Default app settings values can be overridden in the normal way...
+Default app settings values can be overridden in your projecrt :code:`settings.py`...
 
 .. _settings-file-storage:
 
@@ -48,7 +48,7 @@ Restrict catalogue access to logged in users only::
 
     DOCUMENT_CATALOGUE_LOGIN_REQUIRED = True  # if PrivateCatalogueConfig else False
 
-**IMPORTANT**: *setting restricts access to catalogue views only -- not to media served directly by web server.*
+**IMPORTANT**: *this setting restricts access to catalogue views only -- not to media served directly by web server.*
 For :code:`PublicCatalogueConfig`, anyone with the correct media URL can download files directly
 regarless of this setting.
 
@@ -90,6 +90,6 @@ Plugin Classes used to inject behaviours into standard document list views::
 
     DOCUMENT_CATALOGUE_LIST_VIEW_PLUGINS = ('document_catalogue.plugins.SessionOrderedViewPlugin', )
 
-* Value is a dotted path to a plugin class that extends :code:`document_catalogue.plugins.AbstractViewPlugin`
+* Value is a tuple of dotted paths to plugin classes that extends :code:`document_catalogue.plugins.AbstractViewPlugin`
 
 See :ref:`doc-list-plugins`

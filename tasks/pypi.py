@@ -26,7 +26,7 @@ def version(c):
 @task
 def upload(c, repo='testpypi'):
     """ Upload build to given PyPi repo"""
-    c.run('twine upload --repository {}} dist/*'.format(repo))
+    c.run('twine upload --repository {} dist/*'.format(repo))
 
 @task(help={'dist': "Name of distirbution file under dist/ directory to check."})
 def check(c, dist):
