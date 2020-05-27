@@ -1,11 +1,15 @@
 import os
 
-from django.conf import settings as django_settings
+import django.conf
 from django.test import TestCase
 from django.core.files.uploadedfile import UploadedFile
 from django import forms
-from document_catalogue import models, settings
+from document_catalogue import models
 from . import base
+
+from django.apps import apps
+
+appConfig = apps.get_app_config('document_catalogue')
 
 
 # Create tests for models here.
@@ -76,7 +80,7 @@ class DocumentTests(TestCase):
         os.remove(doc.file.path)
 
     def test_private_storage(self):
-        self.assertIn(django_settings.PRIVATE_STORAGE_ROOT, self.document.file.path)
+        self.assertIn(django.conf.settings.PRIVATE_STORAGE_ROOT, self.document.file.path)
 
 
 class ConstrainedfileFieldTests(TestCase):
@@ -96,7 +100,7 @@ class ConstrainedfileFieldTests(TestCase):
         document = base.create_document()
         file_field = document.file.field
         # fudge the file size to exceed max.
-        file_size = settings.DOCUMENT_CATALOGUE_MAX_FILESIZE + 1
+        file_size = appConfig.settings.MAX_FILESIZE + 1
         document.file.file = \
             UploadedFile(file=document.file.file, name=document.title, content_type='txt', size=file_size)
         with self.assertRaises(forms.ValidationError):

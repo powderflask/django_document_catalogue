@@ -1,7 +1,9 @@
+from django.apps import apps
 from django.urls import path
 
-from . import settings
 from . import views
+
+appConfig = apps.get_app_config('document_catalogue')
 
 app_name = 'document_catalogue'
 
@@ -29,7 +31,7 @@ urlpatterns = [
     ),
 ]
 
-if settings.DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS:
+if appConfig.settings.ENABLE_EDIT_URLS:
     urlpatterns += [
         path('edit/<int:pk>/',
              view=views.DocumentEditView.as_view(),

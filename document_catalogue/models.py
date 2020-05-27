@@ -1,10 +1,11 @@
 import os
+from django.apps import apps
 import django.conf
-from . import settings
 from django.urls import reverse
 from django.db import models
 import mptt.models
 
+appConfig = apps.get_app_config('document_catalogue')
 
 class DocumentCategory(mptt.models.MPTTModel):
     """
@@ -67,7 +68,7 @@ class PublishedDocumentManager(DocumentManager):
 
 def document_upload_path_callback(instance, filename):
     """ Dynamic upload path based on file instance """
-    path = "%s%s/%s" % (settings.DOCUMENT_CATALOGUE_MEDIA_ROOT, instance.category.slug, filename)
+    path = "%s%s/%s" % (appConfig.settings.MEDIA_ROOT, instance.category.slug, filename)
     return path
 
 
@@ -91,22 +92,22 @@ class Document(models.Model):
 
     is_published = models.BooleanField(default=False)
 
-    if settings.DOCUMENT_CATALOGUE_USE_PRIVATE_FILES:
+    if appConfig.settings.USE_PRIVATE_FILES:
         from private_storage.fields import PrivateFileField
         file = PrivateFileField(
             upload_to=document_upload_path_callback,
-            content_types=settings.DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST,
-            max_file_size=settings.DOCUMENT_CATALOGUE_MAX_FILESIZE \
-                if settings.DOCUMENT_CATALOGUE_MAX_FILESIZE else None
+            content_types=appConfig.settings.CONTENT_TYPE_WHITELIST,
+            max_file_size=appConfig.settings.MAX_FILESIZE \
+                if appConfig.settings.MAX_FILESIZE else None
         )
     else:
         from constrainedfilefield.fields import ConstrainedFileField
         file = ConstrainedFileField(
             max_length=200,
             upload_to=document_upload_path_callback,
-            content_types=settings.DOCUMENT_CATALOGUE_CONTENT_TYPE_WHITELIST,
-            max_upload_size=settings.DOCUMENT_CATALOGUE_MAX_FILESIZE * 1024 * 1024 \
-                if settings.DOCUMENT_CATALOGUE_MAX_FILESIZE else 0
+            content_types=appConfig.settings.CONTENT_TYPE_WHITELIST,
+            max_upload_size=appConfig.settings.MAX_FILESIZE * 1024 * 1024 \
+                if appConfig.settings.MAX_FILESIZE else 0
         )
     objects = DocumentManager()
     published = PublishedDocumentManager()

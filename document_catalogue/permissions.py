@@ -8,12 +8,13 @@ Defaults use django's built in content_type permissions for the Document model.
 Each function takes the request use and the view's kwargs as arguments,
     returns True iff user has the required permission for the given object(s).
 """
-from . import settings
+from django.apps import apps
+appConfig = apps.get_app_config('document_catalogue')
 
 
 def user_can_view_document_catalogue(user, **kwargs):
     """ Return True iff given user is allowed to view the document catalogue """
-    return not settings.DOCUMENT_CATALOGUE_LOGIN_REQUIRED or user.is_authenticated
+    return not appConfig.settings.LOGIN_REQUIRED or user.is_authenticated
 
 
 def user_can_download_document(user, **kwargs):

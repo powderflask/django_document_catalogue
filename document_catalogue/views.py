@@ -2,6 +2,7 @@ from importlib import import_module
 from functools import partial
 from itertools import groupby
 
+from django.apps import apps
 from django.utils.module_loading import import_string
 from django.utils.functional import cached_property
 from django.urls import reverse
@@ -14,13 +15,15 @@ from django.views import generic
 from .models import Document, DocumentCategory
 from .views_generic import AjaxOnlyViewMixin
 from .decorators import permission_required
-from . import settings, forms, plugins
+from . import forms, plugins
+
+appConfig = apps.get_app_config('document_catalogue')
 
 # import Plugin Permissions module
-permissions = import_module(settings.DOCUMENT_CATALOGUE_PERMISSIONS)
+permissions = import_module(appConfig.settings.PERMISSIONS)
 
 # import Plugin classes
-list_view_plugin_classes = tuple(import_string(plugin) for plugin in settings.DOCUMENT_CATALOGUE_LIST_VIEW_PLUGINS)
+list_view_plugin_classes = tuple(import_string(plugin) for plugin in appConfig.settings.LIST_VIEW_PLUGINS)
 
 
 def get_permissions_context(view):
@@ -39,7 +42,7 @@ class CatalogueViewMixin(generic.base.ContextMixin, generic.View):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx.update({
-            'show_edit_links': True if settings.DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS else False,
+            'show_edit_links': True if appConfig.settings.ENABLE_EDIT_URLS else False,
             **get_permissions_context(self),
         })
         return ctx

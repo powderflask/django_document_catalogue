@@ -1,8 +1,10 @@
 from importlib import import_module
+from django.apps import apps
 from django.core.exceptions import PermissionDenied
-from . import settings
 
-permissions = import_module(settings.DOCUMENT_CATALOGUE_PERMISSIONS)
+appConfig = apps.get_app_config('document_catalogue')
+
+permissions = import_module(appConfig.settings.PERMISSIONS)
 
 
 def permission_required(permission_fn):
