@@ -1,5 +1,5 @@
 /.idea
-/db.sqlite3
+/db.sqlite3*
 /django_document_catalogue.egg-info/
 /private-media/
 /docs/_build/

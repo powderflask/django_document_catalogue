@@ -24,7 +24,7 @@ import unittest
 def setup_django_settings():
     os.chdir(os.path.join(os.path.dirname(__file__), ".."))
     sys.path.insert(0, os.getcwd())
-    os.environ["DJANGO_SETTINGS_MODULE"] = "document_catalogue.tests.settings"
+    os.environ["DJANGO_SETTINGS_MODULE"] = "document_catalogue.tests.settings.private"
 
 
 def run_tests():

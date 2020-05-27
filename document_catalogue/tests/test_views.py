@@ -1,6 +1,7 @@
 import os
 
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
 from document_catalogue import models, permissions
 from . import base
@@ -75,11 +76,18 @@ class SuccessDocumentViewTests(BaseTestWithUsers) :
         self.login(self.restrictedUser)   # Any logged-in user can view docuemnts in the catalogue, by default
         document = base.create_document()
         url = reverse('document_catalogue:document_download', kwargs={'pk': document.pk})
-        response = self.client.get(url, follow=True)
-        self.assertEqual(response.status_code, 200, "Document download view should re-direct and respond with file.")
-        self.assertEqual(302, response.redirect_chain[0][1])
-        self.assertIn(document.file.url, response.redirect_chain[0][0])
-
+        if base.appConfig.settings.USE_PRIVATE_FILES:
+            response = self.client.get(url, follow=True)
+            self.assertEqual(response.status_code, 200,
+                             "Document download view should re-direct and respond with file.")
+            self.assertEqual(302, response.redirect_chain[0][1])
+            self.assertIn(document.file.url, response.redirect_chain[0][0])
+        else:
+            # test client doesn't serve media, so just check for the redirect and that the path exists
+            response = self.client.get(url, follow=False)
+            self.assertEqual(response.status_code, 302,
+                             "Document download view should re-direct and respond with file.")
+            self.assertTrue(os.path.exists(document.file.path))
 
     def test_document_edit_view_get(self):
         self.login(self.privilegedUser)   # Only privileged users can edit a document
@@ -172,10 +180,14 @@ class DeniedDocumentViewTests(BaseTestWithUsers) :
         self.assertEqual(response.status_code, 403, "Document download view non-denied status code for anonymous user.")
 
     def test_private_file_download(self):
-        # Only authenticated users can download a document file
+        # With private-storage, only authenticated users can download a document file
         document = base.create_document()
-        response = self.client.get(document.file.url)
-        self.assertEqual(response.status_code, 403, "Private file download view non-denied status code for anonymous user.")
+        if base.appConfig.settings.USE_PRIVATE_FILES:
+            response = self.client.get(document.file.url)
+            self.assertEqual(response.status_code, 403, "Private file download view not denied for anonymous user.")
+        else:
+            # test client doesn't serve media, so just check the path exists
+            self.assertTrue(os.path.exists(document.file.path))
 
     def test_document_edit_view(self):
         self.login(self.restrictedUser)   # Only privileged users can edit a document

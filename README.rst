@@ -43,4 +43,4 @@ Get Me Some of That
 * `PiPy <https://pypi.org/project/django-document-catalogue>`_
 
 
-`MIT license <https://github.com/powderflask/django_document_catalogue/blob/master/LICENSE>`_.
+`MIT license <https://github.com/powderflask/django_document_catalogue/blob/master/LICENSE>`_

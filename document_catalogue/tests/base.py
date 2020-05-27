@@ -1,12 +1,14 @@
 """
      Base classes used to setup testing fixtures
 """
-from django.test import TestCase, SimpleTestCase
+from django.conf import settings
+from django.apps import apps
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.auth.models import AnonymousUser, User, Permission
 from django.utils.text import slugify
 from document_catalogue import models
-from . import settings
+
+appConfig = apps.get_app_config('document_catalogue')
 
 
 def anonymous_user():

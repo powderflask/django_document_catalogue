@@ -7,10 +7,6 @@ from django import forms
 from document_catalogue import models
 from . import base
 
-from django.apps import apps
-
-appConfig = apps.get_app_config('document_catalogue')
-
 
 # Create tests for models here.
 
@@ -80,12 +76,15 @@ class DocumentTests(TestCase):
         os.remove(doc.file.path)
 
     def test_private_storage(self):
-        self.assertIn(django.conf.settings.PRIVATE_STORAGE_ROOT, self.document.file.path)
+        media_root = getattr(django.conf.settings, 'PRIVATE_STORAGE_ROOT') if base.appConfig.USE_PRIVATE_FILES \
+                                                                         else django.conf.settings.MEDIA_ROOT
+        self.assertIn(media_root, self.document.file.path)
+        self.assertIn(base.appConfig.settings.MEDIA_ROOT, self.document.file.path)
 
 
 class ConstrainedfileFieldTests(TestCase):
     """
-        A few basic tests for fields.ConstrainedFileField -- ASSUMED to be field type for models.Document.file!
+        A few basic tests for common validation in both PrivateFileField and ConstrainedFileField
     """
     def setUp(self):
         super().setUp()
@@ -96,16 +95,32 @@ class ConstrainedfileFieldTests(TestCase):
         file_field = document.file.field
         self.assertIsNotNone(file_field.clean(value=document.file, model_instance=document))
 
+    class FileField:
+        def __init__(self, field):
+            self.field = field
+            self.store = self.get_max_upload_size()
+        def get_max_upload_size(self):
+            return self.field.max_file_size if base.appConfig.USE_PRIVATE_FILES else self.field.max_upload_size
+        def set_max_upload_size(self, max):
+            self.field.max_upload_size = max
+        def restore_max_upload_size(self):
+            if base.appConfig.USE_PRIVATE_FILES:
+                self.field.max_file_size = self.store
+            else:
+                self.field.max_upload_size = self.store
+
     def test_max_upload_size_fail(self):
         document = base.create_document()
-        file_field = document.file.field
-        # fudge the file size to exceed max.
-        file_size = appConfig.settings.MAX_FILESIZE + 1
+        file_field = self.FileField(document.file.field)
+        file_size = file_field.get_max_upload_size()-1
         document.file.file = \
             UploadedFile(file=document.file.file, name=document.title, content_type='txt', size=file_size)
+        # fudge the max_upload_size to fall below file size.
+        file_field.set_max_upload_size(document.file.size - 1)
         with self.assertRaises(forms.ValidationError):
-            file_field.clean(value=document.file, model_instance=document)
+            file_field.field.clean(value=document.file, model_instance=document)
         # Cleanup
+        file_field.restore_max_upload_size()
         os.remove(document.file.path)
 
     def test_content_types_fail(self):
