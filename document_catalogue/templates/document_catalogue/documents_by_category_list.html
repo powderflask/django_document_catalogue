@@ -9,6 +9,14 @@
     </div>
     {% include 'document_catalogue/include/breadcrumb.html' %}
 
-    {% include 'document_catalogue/include/categories.html' with show_documents=True %}
+    {% with document_list=category.document_set.all %}
+        {% if document_list|length > 0 %}
+            <ul class="dc-document-list list-group">
+                {% include "document_catalogue/include/documents.html" %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% include 'document_catalogue/include/categories.html' with categories=category.get_descendants show_documents=False %}
 
 {% endblock %}

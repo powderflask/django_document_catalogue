@@ -1,5 +1,5 @@
 <ol class="dc-breadcrumb breadcrumb">
-    {% for cat in ancestors %}
+    {% for cat in category.get_ancestors %}
         <li><a class="dc-category" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
     {% endfor %}
     {% if current_category_link %}

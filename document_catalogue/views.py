@@ -77,8 +77,7 @@ class DocumentCatalogueListView(CatalogueViewMixin, generic.ListView):
     """ List all categories in the Catalogue """
     template_name = 'document_catalogue/categories_list.html'
 
-    queryset = DocumentCategory.objects.add_related_count(DocumentCategory.objects.all(), Document,
-                                                         'category', 'document_count',cumulative=True)
+    queryset = DocumentCategory.objects.all()
 
 
 class CatgetoryContextViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
@@ -93,8 +92,6 @@ class CategoryListViewMixin(CatgetoryContextViewMixin):
         ctx = super().get_context_data(**kwargs)
         ctx.update({
             'category': self.category,
-            'descendants': self.category.get_descendants(include_self=True).annotate(document_count=Count('document')),
-            'ancestors': self.category.get_ancestors()
         })
         return ctx
 
@@ -130,16 +127,6 @@ class DocumentCategoryListView(CategoryListViewMixin, BaseDocumentListView):
     """ List all documents in a given category """
     template_name = 'document_catalogue/documents_by_category_list.html'
 
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        documents = Prefetch('document_set', queryset=self.get_document_queryset())
-        ctx.update({
-            'descendants': self.category.get_descendants(include_self=True)\
-                                       .annotate(document_count=Count('document'))\
-                                       .prefetch_related(documents)
-        })
-        return ctx
-
 
 class DocumentViewMixin(generic.base.ContextMixin, DocumentPkMixin):
     """ Mixins for views that display a document """
@@ -148,7 +135,6 @@ class DocumentViewMixin(generic.base.ContextMixin, DocumentPkMixin):
         ctx.update({
             'document' : self.document,
             'category' : self.document.category,
-            'ancestors':self.document.category.get_ancestors()
         })
         return ctx
 
