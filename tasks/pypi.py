@@ -1,3 +1,4 @@
+import re
 from invoke import task
 from . import docs as docs_task
 
@@ -18,10 +19,23 @@ def build(c, docs=False):
     if docs:
         docs_task.build(c)
 
-@task
+def get_versions():
+    """ Grab version numbers from various places they are explicitly defined and return dictionary """
+    from document_catalogue import __version__
+
+    with open("docs/.readthedocs.yml", "rb") as f:
+        DOCS_VERSION = str(re.search('version: (.+)', f.read().decode()).group(1))
+
+    return {
+        'Package document-catalogue Version' : __version__,
+        'Docs version' : DOCS_VERSION,
+    }
+
+@task(help='print version numbers, from various places they exist in project')
 def version(c):
     """ Print current project versions found in source file(s) """
-    setup(c, 'version')
+    for k,v in get_versions().items():
+        print('{label}: {version}'.format(label=k, version=v))
 
 @task
 def upload(c, repo='testpypi'):

@@ -30,21 +30,6 @@ NAME = "django-document-catalogue"
 with open("document_catalogue/__init__.py", "rb") as f:
     VERSION = str(re.search('__version__ = "(.+?)"', f.read().decode()).group(1))
 
-with open("docs/.readthedocs.yml", "rb") as f:
-    DOCS_VERSION = str(re.search('version: (.+)', f.read().decode()).group(1))
-
-
-class VersionCommand(Command):
-    description = 'print version numbers, from various places they exist in project'
-    user_options = []
-    def initialize_options(self):
-        pass
-    def finalize_options(self):
-        pass
-    def run(self):
-        print('Package {name} Version: {version}'.format(name=NAME, version=VERSION))
-        print('Docs version: {version}'.format(version=DOCS_VERSION))
-
 setup(
     name=NAME,
     version=VERSION,
@@ -84,7 +69,6 @@ setup(
     ],
     cmdclass={
         'clean' : CleanCommand,
-        'version': VersionCommand,
     },
     test_suite="dummy",
 )
