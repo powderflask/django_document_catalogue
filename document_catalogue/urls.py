@@ -13,9 +13,9 @@ urlpatterns = [
          name='catalogue_list'
     ),
     path('category/<slug:slug>/',
-         view=views.DocumentCategoryListView.as_view(),
+         view=views.CategoryDocumentListView.as_view(),
          name='category_list'
-    ),
+         ),
     path('detail/<int:pk>/',
          view=views.DocumentDetailView.as_view(),
          name='document_detail'

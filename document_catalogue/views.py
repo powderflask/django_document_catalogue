@@ -123,9 +123,9 @@ class BaseDocumentListView(plugins.ViewPluginManager,
 
 
 @plugins.RegisterPlugins(*(plugin() for plugin in list_view_plugin_classes))
-class DocumentCategoryListView(CategoryListViewMixin, BaseDocumentListView):
+class CategoryDocumentListView(CategoryListViewMixin, BaseDocumentListView):
     """ List all documents in a given category """
-    template_name = 'document_catalogue/documents_by_category_list.html'
+    template_name = 'document_catalogue/category_document_list.html'
 
 
 class DocumentViewMixin(generic.base.ContextMixin, DocumentPkMixin):

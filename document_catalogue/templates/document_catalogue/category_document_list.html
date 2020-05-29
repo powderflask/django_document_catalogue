@@ -17,6 +17,6 @@
         {% endif %}
     </ul>
 
-    {% include 'document_catalogue/include/categories.html' with categories=category.get_descendants show_documents=False %}
+    {% include 'document_catalogue/include/categories.html' with categories=category.get_descendants %}
 
 {% endblock %}

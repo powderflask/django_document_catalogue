@@ -1,8 +1,12 @@
 {% load mptt_tags %}
 
 <ol class="dc-breadcrumb breadcrumb">
-    <li><a href="{% url 'home' %}">Home</a></li>
-    {% for cat in ancestors %}
+    <li>
+        {% block dc-breacrumb-home %}
+            <a href="{% url 'document_catalogue:catalogue_list' %}">Catalogue Home</a>
+        {% endblock %}
+    </li>
+    {% for cat in category.get_ancestors %}
         <li><a class="dc-category" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
     {% endfor %}
     {% if category.is_leaf_node %}
@@ -17,7 +21,7 @@
                     <span class="caret"></span>
                 </a>
                 <span class="dropdown-menu" aria-labelledby="dc-descendants-menu">
-                    {% include 'document_catalogue/include/categories.html' with categories=category.get_descendants show_documents=False %}
+                    {% include 'document_catalogue/include/categories.html' with categories=category.get_descendants %}
                 </span>
             </div>
         </li>
