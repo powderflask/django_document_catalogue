@@ -45,7 +45,7 @@ setup(
         'setuptools-git',    # apparently needed to handle include_package_data from git repo?
     ],
     license="MIT",
-    include_package_data = True,
+    include_package_data=True,  # declarations in MANIFEST.in
     description=("Simple, light-weight, stand-alone, hierarchical document library as a reusable django app."),
     long_description=open("README.rst").read(),
     long_description_content_type="text/x-rst",

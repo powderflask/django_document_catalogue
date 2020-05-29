@@ -1,0 +1,5 @@
+include README.rst
+include AUTHORS
+include LICENSE
+recursive-include document_catalogue/templates *
+recursive-include document_catalogue/static *
