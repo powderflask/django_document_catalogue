@@ -9,13 +9,13 @@
     </div>
     {% include 'document_catalogue/include/breadcrumb.html' %}
 
-    {% with document_list=category.document_set.all %}
+    <ul class="dc-document-list list-group">
+        {% include 'document_catalogue/include/dropzone.html' %}
+
         {% if document_list|length > 0 %}
-            <ul class="dc-document-list list-group">
-                {% include "document_catalogue/include/documents.html" %}
-            </ul>
+            {% include "document_catalogue/include/documents.html" %}
         {% endif %}
-    {% endwith %}
+    </ul>
 
     {% include 'document_catalogue/include/categories.html' with categories=category.get_descendants show_documents=False %}
 
