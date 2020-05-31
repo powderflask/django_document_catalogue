@@ -12,6 +12,13 @@
     font-size: 1.5em;
 }
 
+.dc-category-header .\'dc-category-description {
+    color: gray;
+    margin-left: 4em;
+    font-family: serif;
+    font-style: italic;
+}
+
 .dc-document-ordering.dropdown button.dropdown-toggle,
 .dc-descendants-menu .dropdown button.dropdown-toggle {
     background-color: transparent;
