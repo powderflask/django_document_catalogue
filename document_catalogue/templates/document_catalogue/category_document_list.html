@@ -1,4 +1,5 @@
 {% extends 'document_catalogue/base.html' %}
+{% load permissions_tags %}
 
 {% load mptt_tags %}
 
@@ -12,7 +13,9 @@
     {% include  'document_catalogue/include/category-header.html'%}
 
     <ul class="dc-document-list list-group">
-        {% include 'document_catalogue/include/dropzone.html' %}
+        {% if user|can:'user_can_post_document' %}
+            {% include 'document_catalogue/include/dropzone.html' %}
+        {% endif %}
 
         {% if document_list|length > 0 %}
             {% include "document_catalogue/include/documents.html" %}
