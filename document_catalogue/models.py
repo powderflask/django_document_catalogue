@@ -133,3 +133,10 @@ class Document(models.Model):
 
     def filename(self):
         return os.path.basename(self.file.name)
+
+    def save(self, *args, **kwargs):
+        if not self.sort_order:
+            qs = Document.objects.filter(category=self.category) if self.category else Document.objects
+            last = qs.order_by('sort_order').values('sort_order').last()
+            self.sort_order = last['sort_order'] + 1 if last else 1
+        super().save(*args, **kwargs)
