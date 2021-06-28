@@ -48,8 +48,7 @@ ROOT_URLCONF = 'document_catalogue.tests.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'demo/templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'demo/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
