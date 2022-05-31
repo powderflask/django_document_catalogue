@@ -122,6 +122,8 @@ STATICFILES_DIRS = (
     # '/path/to/some_other_static_media',
 )
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 FIXTURE_DIRS = [os.path.join(BASE_DIR, "fixtures/"), ]
 
 # django-private-files  (private document downloads)

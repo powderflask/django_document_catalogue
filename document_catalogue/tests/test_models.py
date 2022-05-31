@@ -114,7 +114,7 @@ class ConstrainedfileFieldTests(TestCase):
         file_field = self.FileField(document.file.field)
         file_size = file_field.get_max_upload_size()-1
         document.file.file = \
-            UploadedFile(file=document.file.file, name=document.title, content_type='txt', size=file_size)
+            UploadedFile(file=document.file.file, name=document.file.name, content_type='txt', size=file_size)
         # fudge the max_upload_size to fall below file size.
         file_field.set_max_upload_size(document.file.size - 1)
         with self.assertRaises(forms.ValidationError):
@@ -127,7 +127,7 @@ class ConstrainedfileFieldTests(TestCase):
         document = base.create_document(filename='dummy.html', file_type='html')
         file_field = document.file.field
         document.file.file = \
-            UploadedFile(file=document.file.file, name=document.title, content_type='html', size=document.file.size)
+            UploadedFile(file=document.file.file, name=document.file.name, content_type='html', size=document.file.size)
         with self.assertRaises(forms.ValidationError):
             file_field.clean(value=document.file, model_instance=document)
         # Cleanup

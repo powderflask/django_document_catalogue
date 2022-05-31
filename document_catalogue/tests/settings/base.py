@@ -98,6 +98,8 @@ STATICFILES_DIRS = (
     # '/path/to/some_other_static_media',
 )
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # Document Catalogue overrides
 DOCUMENT_CATALOGUE_LOGIN_REQUIRED = True
 DOCUMENT_CATALOGUE_ENABLE_EDIT_URLS = True

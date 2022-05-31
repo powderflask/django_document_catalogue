@@ -2,6 +2,7 @@
 /db.sqlite3*
 /django_document_catalogue.egg-info/
 /private-media/
+/media/
 /docs/_build/
 /docs/_static/
 /docs/_templates/

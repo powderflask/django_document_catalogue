@@ -34,12 +34,12 @@ setup(
     name=NAME,
     version=VERSION,
     packages=find_packages(include=['document_catalogue', 'document_catalogue.*']),
-    python_requires='>=3.5, <4',
+    python_requires='>=3.7, <4',
     install_requires = [
-        'Django>=2.2,<3.0',
+        'Django>=3.2,<4.0',
         'django-mptt>=0.10.0',
         'django-private-storage>=2.2',
-        'django-admin-sortable2',
+        'django-admin-sortable2>=1.0,<2.0',
         'django-constrainedfilefield>=3.2.0',
         'python-magic>=0.4.15',
         'setuptools-git',    # apparently needed to handle include_package_data from git repo?
