@@ -31,7 +31,7 @@ def get_versions():
         'Docs version' : DOCS_VERSION,
     }
 
-@task(help='print version numbers, from various places they exist in project')
+@task
 def version(c):
     """ Print current project versions found in source file(s) """
     for k,v in get_versions().items():

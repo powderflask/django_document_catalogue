@@ -18,8 +18,8 @@ Features:
  * opt-in user-facing edit / upload / delete views and AJAX API
 
 Dependencies:
- * python 3.5+
- * django 2+
+ * python 3.7+
+ * django 3.2+
  * `django-mptt <https://django-mptt.readthedocs.io/en/latest/index.html>`_
 
 Configurable file handling:
