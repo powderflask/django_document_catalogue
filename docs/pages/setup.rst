@@ -43,7 +43,7 @@ Configure ``django-private-storage``
     PRIVATE_STORAGE_AUTH_FUNCTION = 'private_storage.permissions.allow_authenticated'
 
 
-PubicStorageConfig
+PublicStorageConfig
 --------------------
 If none of your files require login or permissions to download...
 

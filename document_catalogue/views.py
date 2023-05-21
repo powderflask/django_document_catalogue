@@ -80,13 +80,13 @@ class DocumentCatalogueListView(CatalogueViewMixin, generic.ListView):
     queryset = DocumentCategory.objects.all()
 
 
-class CatgetoryContextViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
+class CategoryContextViewMixin(generic.base.ContextMixin, CategorySlugViewMixin):
     """ Mixing for views that supply context about a category """
     # here to serve as a base class so consitent MRO can be created
     pass
 
 
-class CategoryListViewMixin(CatgetoryContextViewMixin):
+class CategoryListViewMixin(CategoryContextViewMixin):
     """ Mixin for views that navigate categories or display a list of categories """
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -97,7 +97,7 @@ class CategoryListViewMixin(CatgetoryContextViewMixin):
 
 
 class BaseDocumentListView(plugins.ViewPluginManager,
-                           CatalogueViewMixin, CatgetoryContextViewMixin, generic.ListView):
+                           CatalogueViewMixin, CategoryContextViewMixin, generic.ListView):
     """
         Base class / mixin for views that list documents.
         Plugin architecture used to inject custom view logic.  See plugins.

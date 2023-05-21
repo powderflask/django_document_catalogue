@@ -1,4 +1,4 @@
-django-document-cagtalogue Demo Project
+django-document-catalogue Demo Project
 =======================================
 
 This folder contains a demo Django project to
