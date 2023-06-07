@@ -3,6 +3,7 @@ import sys, os, re
 from setuptools import setup, Command, find_packages
 from setuptools.command.test import test
 
+# TODO: Replace CleanCommand with an invoke command?
 class CleanCommand(Command):
     """Custom clean command to tidy up the project root."""
     user_options = []
@@ -70,6 +71,7 @@ setup(
     cmdclass={
         'clean' : CleanCommand,
     },
+    # Specified to run test suite via setup.py test command -- deprecated since v41.5.0
     test_suite="dummy",
 )
 
