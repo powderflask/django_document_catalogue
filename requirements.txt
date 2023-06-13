@@ -6,12 +6,10 @@ django-private-storage>=2.2
 django-admin-sortable2>=1.0,<2.0  # 2.x dependent on django 4.x
 django-debug-toolbar
 
+django-debug-toolbar
 invoke
-bump2version==0.5.11
-wheel==0.33.6
-watchdog==0.9.0
-flake8==3.7.8
-tox==3.14.0
-coverage==4.5.4
-Sphinx==1.8.5
-twine==1.14.0
+sphinx
+sphinx-rtd-theme
+myst-parser
+build
+twine
