@@ -39,6 +39,8 @@
         "django-debug-toolbar",
         "invoke",
         "sphinx",
+        "sphinx-rtd-theme",
+        "myst-parser",
         "build",
         "twine",
     ]
