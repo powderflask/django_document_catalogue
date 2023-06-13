@@ -1,4 +1,4 @@
-# Document Catalogue
+# Django Document Catalogue
 
 Simple, light-weight, stand-alone, hierarchical document library as a
 reusable django app.
