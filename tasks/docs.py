@@ -7,13 +7,13 @@ def make(c, command):
 
 @task
 def clean(c):
-    """ Clean docs build """
+    """ Clean up docs directory """
     make(c, 'clean')
 
 
 @task(clean)
 def build(c):
-    """ Clean and build Sphinx docs """
+    """ Clean up and build Sphinx docs """
     make(c, 'html')
 
 
