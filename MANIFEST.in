@@ -1,4 +1,4 @@
-include README.rst
+include README.md
 include AUTHORS
 include LICENSE
 recursive-include document_catalogue/templates *
