@@ -4,7 +4,7 @@ from . import docs, pypi
 
 @task
 def clean(c):
-    """ Tidy up the project root directory """
+    """ Clean up the project root directory """
     c.run('rm -vrf ./*.pyc ./*.egg-info')
 
 
