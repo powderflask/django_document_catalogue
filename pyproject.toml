@@ -49,6 +49,9 @@
     Repository = "https://github.com/powderflask/django_document_catalogue"
     Documentation = "https://django-document-catalogue.readthedocs.io"
 
+[tool.setuptools.dynamic]
+    version = {attr = "document_catalogue.__version__"}
+
 [tool.setuptools]
     include-package-data = true  # True by default, declarations in MANIFEST.in
 
