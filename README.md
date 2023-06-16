@@ -1,4 +1,5 @@
 # Django Document Catalogue
+#### Version: 0.3.0
 
 Simple, light-weight, stand-alone, hierarchical document library as a
 reusable django app.

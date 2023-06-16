@@ -2,8 +2,10 @@
     requires = ["setuptools"]
     build-backend = "setuptools.build_meta"
 
+
 [project]
     name = "django-document-catalogue"
+    version = "0.3.0"
     authors = [
         {name = "powderflask", email = "powderflask@gmail.com"},
     ]
@@ -33,7 +35,7 @@
         "django-admin-sortable2>=1.0,<2.0",  # 2.x dependent on Django 4.x
         "django-debug-toolbar",
     ]
-    dynamic = ["version"]
+#    dynamic = ["version"]
 
 [project.optional-dependencies]
     dev = [
@@ -50,11 +52,27 @@
     Repository = "https://github.com/powderflask/django_document_catalogue"
     Documentation = "https://django-document-catalogue.readthedocs.io"
 
-[tool.setuptools.dynamic]
-    version = {attr = "document_catalogue.__version__"}
+
+#[tool.setuptools.dynamic]
+#    version = {attr = "document_catalogue.__version__"}
 
 [tool.setuptools]
     include-package-data = true  # True by default, declarations in MANIFEST.in
 
 [tool.setuptools.packages.find]
     include = ["document_catalogue", "document_catalogue.*"]
+
+
+[tool.bumpver]
+    current_version = "0.3.0"
+    version_pattern = "MAJOR.MINOR.PATCH"
+    commit_message = "Bump version: {old_version} --> {new_version}"
+    commit = false
+    tag = false
+    push = false
+
+[tool.bumpver.file_patterns]
+    "pyproject.toml" = ['version = "{version}"']  # Updates project.version and bumpver.current_version
+    "README.md" = ['Version: {version}']
+    "document_catalogue/__init__.py" = ['__version__ = "{version}"']
+    "docs/conf.py" = ["release = '{version}'"]

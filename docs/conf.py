@@ -24,8 +24,7 @@ copyright = '2020, powderflask'
 author = 'powderflask'
 
 # The full version, including alpha/beta/rc tags
-import document_catalogue  # FIXME: Remove / replace import
-release = document_catalogue.__version__
+release = '0.3.0'
 
 master_doc = 'index'
 
