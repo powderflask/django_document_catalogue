@@ -16,12 +16,18 @@ build==0.10.0
     # via
     #   django-document-catalogue (pyproject.toml)
     #   pip-tools
+bumpver==2023.1124
+    # via django-document-catalogue (pyproject.toml)
 certifi==2023.5.7
     # via requests
 charset-normalizer==3.1.0
     # via requests
 click==8.1.3
-    # via pip-tools
+    # via
+    #   bumpver
+    #   pip-tools
+colorama==0.4.6
+    # via bumpver
 django==3.2.19
     # via
     #   django-admin-sortable2
@@ -66,6 +72,10 @@ jinja2==3.1.2
     #   sphinx
 keyring==23.13.1
     # via twine
+lexid==2021.1006
+    # via bumpver
+looseversion==1.2.0
+    # via bumpver
 markdown-it-py==3.0.0
     # via
     #   mdit-py-plugins
@@ -85,6 +95,8 @@ packaging==23.1
     # via
     #   build
     #   sphinx
+pathlib2==2.3.7.post1
+    # via bumpver
 pip-tools==6.13.0
     # via django-document-catalogue (pyproject.toml)
 pkginfo==1.9.6
@@ -116,7 +128,9 @@ rfc3986==2.0.0
 rich==13.4.2
     # via twine
 six==1.16.0
-    # via bleach
+    # via
+    #   bleach
+    #   pathlib2
 snowballstemmer==2.2.0
     # via sphinx
 sphinx==6.2.1
@@ -145,6 +159,8 @@ sqlparse==0.4.4
     # via
     #   django
     #   django-debug-toolbar
+toml==0.10.2
+    # via bumpver
 tomli==2.0.1
     # via
     #   build

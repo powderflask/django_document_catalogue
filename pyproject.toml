@@ -41,6 +41,7 @@
     dev = [
         "invoke",
         "pip-tools",
+        "bumpver",
         "sphinx",
         "sphinx-rtd-theme",
         "myst-parser",
