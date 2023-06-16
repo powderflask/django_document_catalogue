@@ -1,4 +1,3 @@
-import re
 from invoke import task
 from . import docs as docs_task
 
@@ -20,24 +19,10 @@ def build(c, docs=False):
         docs_task.build(c)
 
 
-def get_versions():
-    """ Grab version numbers from various places they are explicitly defined and return dictionary """
-    from document_catalogue import __version__  # FIXME: ModuleNotFoundError importing from document_catalogue
-
-    with open("docs/.readthedocs.yaml", "rb") as f:
-        docs_version = str(re.search('version: (.+)', f.read().decode()).group(1))
-
-    return {
-        'Package version': __version__,
-        'Docs version': docs_version,
-    }
-
-
 @task
-def version(c):
-    """ Print current project versions found in source file(s) """
-    for k, v in get_versions().items():
-        print('{label}: {version}'.format(label=k, version=v))
+def get_version(c):
+    """ Return current version using bumpver """
+    c.run('bumpver show --no-fetch')
 
 
 @task
@@ -55,11 +40,13 @@ def check(c, dist):
 @task(help={'repo': "Specify:  pypi  for a production release."})
 def release(c, repo='testpypi'):
     """ Build release and upload to PyPI """
-    print('Building new release and uploading to {}'.format(repo))
-    print('Current version in source:')
-    version(c)
+    print('Fetching version...')
+    get_version(c)
     if input('Continue? (y/n): ').lower()[0] != 'y':
         print('Release aborted')
         exit(0)
+    print('Building new release...')
     build(c)
+    print('Uploading release to {}...'.format(repo))
     upload(c, repo)
+    print('Success! Your package has been released.')
