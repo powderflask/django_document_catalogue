@@ -4,7 +4,6 @@ django-mptt>=0.10.0
 python-magic>=0.4.15
 django-private-storage>=2.2
 django-admin-sortable2>=1.0,<2.0  # 2.x dependent on django 4.x
-django-debug-toolbar
 
 django-debug-toolbar
 invoke
