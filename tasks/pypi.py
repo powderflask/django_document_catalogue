@@ -24,7 +24,7 @@ def get_versions():
     """ Grab version numbers from various places they are explicitly defined and return dictionary """
     from document_catalogue import __version__  # FIXME: ModuleNotFoundError importing from document_catalogue
 
-    with open("docs/.readthedocs.yml", "rb") as f:
+    with open("docs/.readthedocs.yaml", "rb") as f:
         docs_version = str(re.search('version: (.+)', f.read().decode()).group(1))
 
     return {
