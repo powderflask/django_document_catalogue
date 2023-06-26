@@ -78,7 +78,7 @@ class DocumentTests(TestCase):
     def test_private_storage(self):
         media_root = getattr(django.conf.settings, 'PRIVATE_STORAGE_ROOT') if base.appConfig.USE_PRIVATE_FILES \
                                                                          else django.conf.settings.MEDIA_ROOT
-        self.assertIn(media_root, self.document.file.path)
+        self.assertIn(media_root, self.document.file.path)  # FIXME: AssertionError in Windows
         self.assertIn(base.appConfig.settings.MEDIA_ROOT, self.document.file.path)
 
 
@@ -121,7 +121,7 @@ class ConstrainedfileFieldTests(TestCase):
             file_field.field.clean(value=document.file, model_instance=document)
         # Cleanup
         file_field.restore_max_upload_size()
-        os.remove(document.file.path)
+        os.remove(document.file.path)  # FIXME: PermissionError on Windows
 
     def test_content_types_fail(self):
         document = base.create_document(filename='dummy.html', file_type='html')
@@ -131,4 +131,4 @@ class ConstrainedfileFieldTests(TestCase):
         with self.assertRaises(forms.ValidationError):
             file_field.clean(value=document.file, model_instance=document)
         # Cleanup
-        os.remove(document.file.path)
+        os.remove(document.file.path)  # FIXME: PermissionError on Windows
