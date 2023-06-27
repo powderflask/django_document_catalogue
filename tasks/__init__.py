@@ -5,7 +5,7 @@ from . import docs, pypi
 @task
 def clean(c):
     """ Clean up the project root directory """
-    c.run('rm -vrf ./*.pyc ./*.egg-info')
+    c.run('rm -vrf ./*.pyc ./*.egg-info')  # FIXME: Command fails in Windows
 
 
 namespace = Collection(docs, pypi)
