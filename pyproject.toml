@@ -41,10 +41,11 @@
     dev = [
         "invoke",
         "pip-tools",
-        "bumpver",
+        "pytest-django",
         "sphinx",
         "sphinx-rtd-theme",
         "myst-parser",
+        "bumpver",
         "build",
         "twine",
     ]
@@ -77,3 +78,6 @@
     "README.md" = ['Version: {version}']
     "document_catalogue/__init__.py" = ['__version__ = "{version}"']
     "docs/conf.py" = ["release = '{version}'"]
+
+[tool.pytest.ini_options]
+    DJANGO_SETTINGS_MODULE = "demo.settings"

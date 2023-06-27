@@ -27,7 +27,12 @@ click==8.1.3
     #   bumpver
     #   pip-tools
 colorama==0.4.6
-    # via bumpver
+    # via
+    #   build
+    #   bumpver
+    #   click
+    #   pytest
+    #   sphinx
 django==3.2.19
     # via
     #   django-admin-sortable2
@@ -53,6 +58,8 @@ docutils==0.18.1
     #   readme-renderer
     #   sphinx
     #   sphinx-rtd-theme
+exceptiongroup==1.1.1
+    # via pytest
 idna==3.4
     # via requests
 imagesize==1.4.1
@@ -62,6 +69,8 @@ importlib-metadata==6.6.0
     #   keyring
     #   sphinx
     #   twine
+iniconfig==2.0.0
+    # via pytest
 invoke==2.1.3
     # via django-document-catalogue (pyproject.toml)
 jaraco-classes==3.2.3
@@ -94,6 +103,7 @@ myst-parser==2.0.0
 packaging==23.1
     # via
     #   build
+    #   pytest
     #   sphinx
 pathlib2==2.3.7.post1
     # via bumpver
@@ -101,6 +111,8 @@ pip-tools==6.13.0
     # via django-document-catalogue (pyproject.toml)
 pkginfo==1.9.6
     # via twine
+pluggy==1.2.0
+    # via pytest
 pygments==2.15.1
     # via
     #   readme-renderer
@@ -108,10 +120,16 @@ pygments==2.15.1
     #   sphinx
 pyproject-hooks==1.0.0
     # via build
+pytest==7.4.0
+    # via pytest-django
+pytest-django==4.5.2
+    # via django-document-catalogue (pyproject.toml)
 python-magic==0.4.27
     # via django-document-catalogue (pyproject.toml)
 pytz==2023.3
     # via django
+pywin32-ctypes==0.2.2
+    # via keyring
 pyyaml==6.0
     # via myst-parser
 readme-renderer==37.3
@@ -165,6 +183,7 @@ tomli==2.0.1
     # via
     #   build
     #   pyproject-hooks
+    #   pytest
 twine==4.0.2
     # via django-document-catalogue (pyproject.toml)
 typing-extensions==4.6.3
