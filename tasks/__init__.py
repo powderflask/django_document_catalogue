@@ -8,9 +8,9 @@ from . import docs, pypi
 def clean(c):
     """ Clean up the project root directory """
     if platform.system() == 'Windows':
-        c.run('PowerShell "Remove-Item -Verbose -Recurse -Force ./*.pyc, ./*.egg-info, ./.pytest_cache"')
+        c.run('PowerShell "Remove-Item -Verbose -Recurse -Force ./*.pyc, ./*.egg-info, ./*.pytest_cache, ./*.tox"')
     else:
-        c.run('rm -vrf ./*.pyc ./*.egg-info ./.pytest_cache')
+        c.run('rm -vrf ./*.pyc ./*.egg-info ./*.pytest_cache ./*.tox')
 
 
 namespace = Collection(docs, pypi)
