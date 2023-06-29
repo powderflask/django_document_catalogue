@@ -78,6 +78,3 @@
     "README.md" = ['Version: {version}']
     "document_catalogue/__init__.py" = ['__version__ = "{version}"']
     "docs/conf.py" = ["release = '{version}'"]
-
-[tool.pytest.ini_options]
-    DJANGO_SETTINGS_MODULE = "document_catalogue.tests.settings.private"
