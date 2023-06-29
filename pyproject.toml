@@ -80,4 +80,4 @@
     "docs/conf.py" = ["release = '{version}'"]
 
 [tool.pytest.ini_options]
-    DJANGO_SETTINGS_MODULE = "demo.settings"
+    DJANGO_SETTINGS_MODULE = "document_catalogue.tests.settings.private"
