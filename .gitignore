@@ -1,6 +1,7 @@
 /.idea/
 /.eggs/
 /.tox/
+/.coverage
 /venv/
 /db.sqlite3*
 /django_document_catalogue.egg-info/
