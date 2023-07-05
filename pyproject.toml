@@ -44,9 +44,9 @@ dev = [
 
     "tox",
     "pytest-django",
-    "flake8",  # These dependencies could be removed if they are only used via tox
-    "black",
+    "black",  # These dependencies could be removed if they are only used via tox
     "isort",
+    "flake8",
 
     "invoke",
     "pip-tools",
@@ -83,4 +83,9 @@ push = false
 
 
 [tool.black]
-target-version = ['py37','py38','py39','py310','py311']
+target-version = ["py37","py38","py39","py310","py311"]
+
+
+[tool.isort]
+profile = "black"
+skip_gitignore = true
