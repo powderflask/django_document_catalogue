@@ -1,4 +1,7 @@
-/.idea
+/.idea/
+/.eggs/
+/.tox/
+/venv/
 /db.sqlite3*
 /django_document_catalogue.egg-info/
 /private-media/
@@ -6,6 +9,5 @@
 /docs/_build/
 /docs/_static/
 /docs/_templates/
-/dist/
-/.eggs/
 /build/
+/dist/
