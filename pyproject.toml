@@ -46,7 +46,7 @@ dev = [
     "pytest-django",
     "pytest-cov",
     "pytest-sugar",
-    "black",  # These dependencies could be removed if they are only used via tox
+    "black",
     "isort",
     "flake8",
 
