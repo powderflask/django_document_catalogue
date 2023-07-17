@@ -33,11 +33,12 @@ dependencies = [
     "python-magic>=0.4.15",
     "django-private-storage>=2.2",
     "django-admin-sortable2>=1.0,<2.0",  # 2.x dependent on Django 4.x
-    "django-debug-toolbar",
 ]
 
 [project.optional-dependencies]
 dev = [
+    "django-debug-toolbar",
+
     "sphinx",
     "sphinx-rtd-theme",
     "myst-parser",
