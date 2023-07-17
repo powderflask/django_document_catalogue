@@ -1,83 +1,98 @@
+# Project Configuration
 [build-system]
-    requires = ["setuptools"]
-    build-backend = "setuptools.build_meta"
-
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
 
 [project]
-    name = "django-document-catalogue"
-    version = "0.3.0"
-    authors = [
-        {name = "powderflask", email = "powderflask@gmail.com"},
-    ]
-    maintainers = [
-        {name = "powderflask", email = "powderflask@gmail.com"},
-    ]
-    description = "A simple, lightweight, stand-alone, hierarchical document library as a reusable Django app."
-    readme = "README.rst"
-    requires-python = ">=3.7, <4"
-    keywords = ["Django", "Python"]
-    license = {file = "LICENSE"}
-    classifiers = [
-        "Development Status :: 4 - Beta",
-        "Environment :: Web Environment",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3",
-        "Framework :: Django",
-    ]
-    dependencies = [
-        "Django>=3.2,<4.0",
-        "django-constrainedfilefield>=3.2.0",
-        "django-mptt>=0.10.0",
-        "python-magic>=0.4.15",
-        "django-private-storage>=2.2",
-        "django-admin-sortable2>=1.0,<2.0",  # 2.x dependent on Django 4.x
-        "django-debug-toolbar",
-    ]
-#    dynamic = ["version"]
+name = "django-document-catalogue"
+version = "0.3.0"
+requires-python = ">=3.7, <4"
+description = "A simple, lightweight, stand-alone, hierarchical document library as a reusable Django app."
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    { name = "powderflask", email = "powderflask@gmail.com" },
+]
+keywords = ["Django", "Python"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Framework :: Django",
+    "Environment :: Web Environment",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "Django>=3.2,<4.0",
+    "django-constrainedfilefield>=3.2.0",
+    "django-mptt>=0.10.0",
+    "python-magic>=0.4.15",
+    "django-private-storage>=2.2",
+    "django-admin-sortable2>=1.0,<2.0",  # 2.x dependent on Django 4.x
+]
 
 [project.optional-dependencies]
-    dev = [
-        "invoke",
-        "pip-tools",
-        "pytest-django",
-        "sphinx",
-        "sphinx-rtd-theme",
-        "myst-parser",
-        "bumpver",
-        "build",
-        "twine",
-    ]
+docs =[
+    "sphinx",
+    "sphinx-rtd-theme",
+    "myst-parser",
+]
+style = [
+    "black",
+    "isort",
+    "flake8",
+    "flake8-bugbear",
+]
+test = [
+    "tox",
+    "pytest",
+    "pytest-django",
+    "pytest-cov",
+    "pytest-sugar",
+]
+utils = [
+    "django-debug-toolbar",
+    "invoke",
+    "bumpver",
+    "build",
+    "twine",
+]
 
 [project.urls]
-    Repository = "https://github.com/powderflask/django_document_catalogue"
-    Documentation = "https://django-document-catalogue.readthedocs.io"
+Homepage = "https://github.com/powderflask/django_document_catalogue"
+Repository = "https://github.com/powderflask/django_document_catalogue"
+Documentation = "https://django-document-catalogue.readthedocs.io"
+
+[project.scripts]
+"manage.py" = "django_document_catalogue:django_manage"
 
 
-#[tool.setuptools.dynamic]
-#    version = {attr = "document_catalogue.__version__"}
-
+# Other Tools
 [tool.setuptools]
-    include-package-data = true  # True by default, declarations in MANIFEST.in
+include-package-data = true  # True by default, declarations in MANIFEST.in
 
 [tool.setuptools.packages.find]
-    include = ["document_catalogue", "document_catalogue.*"]
-
+include = ["document_catalogue", "document_catalogue.*"]
 
 [tool.bumpver]
-    current_version = "0.3.0"
-    version_pattern = "MAJOR.MINOR.PATCH"
-    commit_message = "Bump version: {old_version} --> {new_version}"
-    commit = false
-    tag = false
-    push = false
+current_version = "0.3.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "Bump version: {old_version} --> {new_version}"
+commit = false
+tag = false
+push = false
 
 [tool.bumpver.file_patterns]
-    "pyproject.toml" = ['version = "{version}"']  # Updates project.version and bumpver.current_version
-    "README.md" = ['Version: {version}']
-    "document_catalogue/__init__.py" = ['__version__ = "{version}"']
-    "docs/conf.py" = ["release = '{version}'"]
+"pyproject.toml" = ['version = "{version}"']
+"README.md" = ['Version: {version}']
+"document_catalogue/__init__.py" = ['__version__ = "{version}"']
+"docs/source/conf.py" = ["version = '{version}'", "release = '{version}'"]
 
-[tool.pytest.ini_options]
-    DJANGO_SETTINGS_MODULE = "document_catalogue.tests.settings.private"
+[tool.black]
+target-version = ["py37","py38","py39","py310","py311"]
+
+[tool.isort]
+profile = "black"
+skip_gitignore = true

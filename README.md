@@ -1,6 +1,8 @@
 # Django Document Catalogue
 #### Version: 0.3.0
 
+[![Tests](https://github.com/JacobTumak/django_document_catalogue/actions/workflows/pytest.yaml/badge.svg)](https://github.com/JacobTumak/django_document_catalogue/actions/workflows/pytest.yaml)
+
 Simple, light-weight, stand-alone, hierarchical document library as a
 reusable django app.
 

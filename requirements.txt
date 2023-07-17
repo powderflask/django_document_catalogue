@@ -10,14 +10,11 @@ django==3.2.19
     # via
     #   django-admin-sortable2
     #   django-constrainedfilefield
-    #   django-debug-toolbar
     #   django-document-catalogue (pyproject.toml)
     #   django-js-asset
 django-admin-sortable2==1.0.4
     # via django-document-catalogue (pyproject.toml)
 django-constrainedfilefield==5.0.0
-    # via django-document-catalogue (pyproject.toml)
-django-debug-toolbar==4.1.0
     # via django-document-catalogue (pyproject.toml)
 django-js-asset==2.0.0
     # via django-mptt
@@ -30,8 +27,6 @@ python-magic==0.4.27
 pytz==2023.3
     # via django
 sqlparse==0.4.4
-    # via
-    #   django
-    #   django-debug-toolbar
+    # via django
 typing-extensions==4.6.3
     # via asgiref

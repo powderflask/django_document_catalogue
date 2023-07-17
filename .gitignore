@@ -1,10 +1,30 @@
-/.idea
-/db.sqlite3*
-/django_document_catalogue.egg-info/
-/private-media/
-/media/
-/docs/_build/
-/docs/_static/
-/docs/_templates/
-/dist/
-/.eggs/
+# JetBrains
+.idea/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Distribution / packaging
+venv/
+*.egg-info/
+build/
+dist/
+
+# Unit test / coverage reports
+.tox/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Sphinx documentation
+docs/build/
+docs/_static/
+docs/_templates/
+
+# Django databases
+db.sqlite3
+
+# Project files
+# Add specific project files to be ignored here
+media/
+private-media/
