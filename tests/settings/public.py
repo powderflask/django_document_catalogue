@@ -2,5 +2,5 @@
 from .base import *
 
 INSTALLED_APPS += [
-    'document_catalogue.apps.PublicCatalogueConfig',
+    "document_catalogue.apps.PublicCatalogueConfig",
 ]
