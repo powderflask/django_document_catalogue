@@ -10,7 +10,7 @@ asgiref==3.7.2
     # via django
 babel==2.12.1
     # via sphinx
-certifi==2023.5.7
+certifi==2023.7.22
     # via requests
 charset-normalizer==3.2.0
     # via requests
