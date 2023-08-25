@@ -1,4 +1,5 @@
-from invoke import Collection
-from . import docs, pypi
+from invoke import Collection, task
 
-namespace = Collection(docs, pypi)
+from . import clean, deps, docs, pypi
+
+namespace = Collection(clean, deps, docs, pypi)

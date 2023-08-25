@@ -1,0 +1,98 @@
+# Project Configuration
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-document-catalogue"
+version = "0.3.0"
+requires-python = ">=3.7, <4"
+description = "A simple, lightweight, stand-alone, hierarchical document library as a reusable Django app."
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    { name = "powderflask", email = "powderflask@gmail.com" },
+]
+keywords = ["Django", "Python"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Framework :: Django",
+    "Environment :: Web Environment",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "Django>=3.2,<4.0",
+    "django-constrainedfilefield>=3.2.0",
+    "django-mptt>=0.10.0",
+    "python-magic>=0.4.15",
+    "django-private-storage>=2.2",
+    "django-admin-sortable2>=1.0,<2.0",  # 2.x dependent on Django 4.x
+]
+
+[project.optional-dependencies]
+docs =[
+    "sphinx",
+    "sphinx-rtd-theme",
+    "myst-parser",
+]
+style = [
+    "black",
+    "isort",
+    "flake8",
+    "flake8-bugbear",
+]
+test = [
+    "tox",
+    "pytest",
+    "pytest-django",
+    "pytest-cov",
+    "pytest-sugar",
+]
+utils = [
+    "django-debug-toolbar",
+    "invoke",
+    "bumpver",
+    "build",
+    "twine",
+]
+
+[project.urls]
+Homepage = "https://github.com/powderflask/django_document_catalogue"
+Repository = "https://github.com/powderflask/django_document_catalogue"
+Documentation = "https://django-document-catalogue.readthedocs.io"
+
+[project.scripts]
+"manage.py" = "django_document_catalogue:django_manage"
+
+
+# Other Tools
+[tool.setuptools]
+include-package-data = true  # True by default, declarations in MANIFEST.in
+
+[tool.setuptools.packages.find]
+include = ["document_catalogue", "document_catalogue.*"]
+
+[tool.bumpver]
+current_version = "0.3.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "Bump version: {old_version} --> {new_version}"
+commit = false
+tag = false
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['version = "{version}"']
+"README.md" = ['Version: {version}']
+"document_catalogue/__init__.py" = ['__version__ = "{version}"']
+"docs/source/conf.py" = ["version = '{version}'", "release = '{version}'"]
+
+[tool.black]
+target-version = ["py37","py38","py39","py310","py311"]
+
+[tool.isort]
+profile = "black"
+skip_gitignore = true

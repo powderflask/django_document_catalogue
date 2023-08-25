@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('document_catalogue', '0001_initial'),
+        ("document_catalogue", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='document',
-            name='sort_order',
+            model_name="document",
+            name="sort_order",
             field=models.PositiveSmallIntegerField(default=0),
         ),
         migrations.AlterModelOptions(
-            name='document',
-            options={'ordering': ('sort_order',)},
+            name="document",
+            options={"ordering": ("sort_order",)},
         ),
     ]
