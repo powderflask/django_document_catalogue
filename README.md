@@ -1,5 +1,5 @@
 # Django Document Catalogue
-#### Version: 0.3.0
+#### Version: 0.4.0
 
 [![Tests](https://github.com/JacobTumak/django_document_catalogue/actions/workflows/pytest.yaml/badge.svg)](https://github.com/JacobTumak/django_document_catalogue/actions/workflows/pytest.yaml)
 

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-document-catalogue"
-version = "0.3.0"
+version = "0.4.0"
 requires-python = ">=3.7, <4"
 description = "A simple, lightweight, stand-alone, hierarchical document library as a reusable Django app."
 readme = "README.md"
@@ -25,7 +25,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "Django>=3.2,<4.0",
+    "Django>=3.2,<5.0",
     "django-constrainedfilefield>=3.2.0",
     "django-mptt>=0.10.0",
     "python-magic>=0.4.15",
@@ -77,7 +77,7 @@ include-package-data = true  # True by default, declarations in MANIFEST.in
 include = ["document_catalogue", "document_catalogue.*"]
 
 [tool.bumpver]
-current_version = "0.3.0"
+current_version = "0.4.0"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "Bump version: {old_version} --> {new_version}"
 commit = false
@@ -88,7 +88,7 @@ push = false
 "pyproject.toml" = ['version = "{version}"']
 "README.md" = ['Version: {version}']
 "document_catalogue/__init__.py" = ['__version__ = "{version}"']
-"docs/source/conf.py" = ["version = '{version}'", "release = '{version}'"]
+"docs/source/conf.py" = ['release = "{version}"']
 
 [tool.black]
 target-version = ["py37","py38","py39","py310","py311"]
