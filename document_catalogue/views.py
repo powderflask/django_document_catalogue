@@ -3,7 +3,7 @@ from importlib import import_module
 from itertools import groupby
 
 from django.apps import apps
-from django.db.models import Count, Prefetch, Q
+from django.db.models import Q
 from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.template.loader import get_template

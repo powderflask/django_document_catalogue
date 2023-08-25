@@ -12,6 +12,11 @@ from document_catalogue import models
 appConfig = apps.get_app_config("document_catalogue")
 
 
+def null_object():
+    """Return a null, mutable objects"""
+    return lambda: None
+
+
 def anonymous_user():
     return AnonymousUser()
 

@@ -2,6 +2,8 @@ from django.test import TestCase
 
 from document_catalogue import plugins
 
+from . import base
+
 
 class FrameworkTests(TestCase):
     """
@@ -93,7 +95,7 @@ class ViewPluginTests(TestCase):
         self.plugin_manager = Subclass()
 
     def test_apply_plugins(self):
-        request = lambda: None
+        request = base.null_object()
         request.count = 0
         self.plugin_manager.apply_plugins(lambda plugin: plugin.apply(request))
         self.assertEqual(request.count, 2)
@@ -138,6 +140,7 @@ class OrderedViewPluginTestBase(TestCase):
 
             def order_by(self, ordering):
                 self.ordering = ordering
+                return self
 
         self.qs = QS()
 
@@ -151,7 +154,7 @@ class OrderedViewPluginTests(OrderedViewPluginTestBase):
 
     def test_extend_qs(self):
         qs = self.plugin_manager.plugins_extend_qs(self.request, self.qs)
-        self.assertEqual(self.qs.ordering, self.ORDER_EXPERSSION)
+        self.assertEqual(qs.ordering, self.ORDER_EXPERSSION)
 
     def test_get_context(self):
         ctx = self.plugin_manager.plugins_get_context(self.request)
@@ -174,7 +177,7 @@ class SessionOrderedViewPluginTests(OrderedViewPluginTestBase):
     def test_extend_qs(self):
         self.plugin_manager.apply_plugins(lambda plugin: plugin.apply(self.request))
         qs = self.plugin_manager.plugins_extend_qs(self.request, self.qs)
-        self.assertEqual(self.qs.ordering, self.ORDER_EXPERSSION)
+        self.assertEqual(qs.ordering, self.ORDER_EXPERSSION)
 
     def test_get_context(self):
         self.plugin_manager.apply_plugins(lambda plugin: plugin.apply(self.request))

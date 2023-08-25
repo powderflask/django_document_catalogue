@@ -9,8 +9,6 @@ from document_catalogue import models
 
 from . import base
 
-# Create tests for models here.
-
 
 class CategoryTests(TestCase):
     """
@@ -84,7 +82,7 @@ class DocumentTests(TestCase):
         )
 
     def test_document_directory_path(self):
-        instance = lambda: None  # a mutable null object
+        instance = base.null_object()
         instance.category = self.categories[0]
         path = models.document_upload_path_callback(instance, self.FILENAME)
         self.assertIn(self.categories[0].slug, path)
@@ -105,7 +103,7 @@ class DocumentTests(TestCase):
 
     def test_private_storage(self):
         media_root = (
-            getattr(django.conf.settings, "PRIVATE_STORAGE_ROOT")
+            django.conf.settings.PRIVATE_STORAGE_ROOT
             if base.appConfig.USE_PRIVATE_FILES
             else django.conf.settings.MEDIA_ROOT
         )

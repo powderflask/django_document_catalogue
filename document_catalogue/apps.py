@@ -20,8 +20,8 @@ class BaseCatalogueConfig(AppConfig):
     # Default settings for the document_catalogue app.
     settings = Map(
         "default_settings",
-        # Fine scale permissions (default permissions use DOCUMENT_CATALOGUE_LOGIN_REQUIRED, but that setting may be disabled by custom permissions)
-        # Value is a dotted path to a permissions module or object with the required permissions functions - see permissions.py
+        # Fine scale permissions
+        # Value is a dotted path to a permissions module or object with the required permissions functions
         PERMISSIONS=getattr(
             django.conf.settings,
             "DOCUMENT_CATALOGUE_PERMISSIONS",
