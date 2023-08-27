@@ -42,3 +42,31 @@ reusable django app.
 * [PyPI](https://pypi.org/project/django-document-catalogue)
 
 [MIT License](https://github.com/powderflask/django_document_catalogue/blob/master/LICENSE)
+
+[Credits](https://github.com/powderflask/django_document_catalogue/blob/master/AUTHORS)
+
+## Developers
+ * `> pip install -r reqirements_dev.txt`
+
+### Tests
+ * `> pytest`
+ * `> tox`
+
+### Code Style
+ * `> isort`
+ * `> black`
+ * `> flake8`
+
+### Versioning
+ * [Semantic Versioning](https://semver.org/)
+ * `> bumpver` 
+
+### Docs
+ * [Sphinx](https://www.sphinx-doc.org/en/master/) + [MyST parser](https://myst-parser.readthedocs.io/en/latest/intro.html)
+ * [Read The Docs](https://readthedocs.org/projects/django-document-catalogue/)
+
+### Build / Deploy Automation
+ * [invoke](https://www.pyinvoke.org/)
+   * `> invoke -l`
+ * [GitHub Actions](https://docs.github.com/en/actions) (see [.github/workflows](https://github.com/powderflask/django_document_catalogue/tree/master/.github/workflows))
+ * [GitHub Webhooks](https://docs.github.com/en/webhooks)  (see [settings/hooks](https://github.com/powderflask/django_document_catalogue/settings/hooks))
