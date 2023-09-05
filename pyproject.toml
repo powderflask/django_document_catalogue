@@ -58,6 +58,7 @@ utils = [
     "bumpver",
     "build",
     "twine",
+    "pip-tools",
 ]
 
 [project.urls]
@@ -86,7 +87,6 @@ push = false
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = ['version = "{version}"']
-"README.md" = ['Version: {version}']
 "document_catalogue/__init__.py" = ['__version__ = "{version}"']
 "docs/source/conf.py" = ['release = "{version}"']
 

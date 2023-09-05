@@ -1,7 +1,12 @@
 # Django Document Catalogue
-#### Version: 0.4.0
 
-[![Tests](https://github.com/JacobTumak/django_document_catalogue/actions/workflows/pytest.yaml/badge.svg)](https://github.com/JacobTumak/django_document_catalogue/actions/workflows/pytest.yaml)
+[![PyPI Version](https://img.shields.io/pypi/v/django_document_catalogue.svg)][1]
+[![Docs Status](https://readthedocs.org/projects/django-document-catalogue/badge/?version=latest)][2]
+[![Tests](https://github.com/powderflask/django_document_catalogue/actions/workflows/pytest.yaml/badge.svg)][3]
+
+[1]: <https://pypi.python.org/pypi/django_document_catalogue>
+[2]: <https://django-document-catalogue.readthedocs.io/en/latest/>
+[3]: <https://github.com/powderflask/django_document_catalogue/actions/workflows/pytest.yaml>
 
 Simple, light-weight, stand-alone, hierarchical document library as a
 reusable django app.
@@ -19,7 +24,7 @@ reusable django app.
  * opt-in user-facing edit / upload / delete views and AJAX API
 
 ## Dependencies:
- * python 3.7+
+ * python 3.8+
  * django 3.2+
  * [django-mptt](https://django-mptt.readthedocs.io/en/latest/index.html)
 
@@ -43,9 +48,16 @@ reusable django app.
 
 [MIT License](https://github.com/powderflask/django_document_catalogue/blob/master/LICENSE)
 
-[Credits](https://github.com/powderflask/django_document_catalogue/blob/master/AUTHORS)
+### Acknowledgments
+Special thanks to BC Hydro, [Chartwell](https://crgl.ca/),
+and all [Contributors](https://github.com/powderflask/django_document_catalogue/graphs/contributors)
 
-## Developers
+#### Technology Colophon
+    Python3, HTML5, CSS3, JavaScript
+    Django, django-mptt, django-private-storage
+    jQuery, bootstrap, dropzone
+
+## For Developers
  * `> pip install -r reqirements_dev.txt`
 
 ### Tests
@@ -67,6 +79,6 @@ reusable django app.
 
 ### Build / Deploy Automation
  * [invoke](https://www.pyinvoke.org/)
-   * `> invoke -l`
+   * `> invoke -l` 
  * [GitHub Actions](https://docs.github.com/en/actions) (see [.github/workflows](https://github.com/powderflask/django_document_catalogue/tree/master/.github/workflows))
  * [GitHub Webhooks](https://docs.github.com/en/webhooks)  (see [settings/hooks](https://github.com/powderflask/django_document_catalogue/settings/hooks))
