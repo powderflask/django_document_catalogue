@@ -14,7 +14,7 @@ certifi==2023.7.22
     # via requests
 charset-normalizer==3.2.0
     # via requests
-django==3.2.20
+django==3.2.23
     # via
     #   django-admin-sortable2
     #   django-constrainedfilefield
